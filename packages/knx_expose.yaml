@@ -1,0 +1,6 @@
+knx:
+  expose:
+   - address: "0/2/9"
+     entity_id: sensor.e3dc_excess_power
+     type: string
+     cooldown: 15

@@ -1,0 +1,918 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+my:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+homeassistant:
+  packages: !include_dir_named packages
+
+knx:
+
+  sensor:
+
+    - name: "OG-Z1 Licht Betriebsstunden"
+      state_address: "5/3/2"
+      type: long_delta_timesec
+      sync_state: expire 30
+    - name: "OG-Z1 Licht Stromwert"
+      state_address: "5/3/5"
+      type: current
+      sync_state: expire 30
+    - name: "OG-Z1 Licht Stromzähler"
+      state_address: "5/3/6"
+      type: active_energy
+      sync_state: expire 30
+
+    - name: "OG-Z2 Licht Betriebsstunden"
+      state_address: "5/3/22"
+      type: long_delta_timesec
+      sync_state: expire 30
+    - name: "OG-Z2 Licht Stromwert"
+      state_address: "5/3/25"
+      type: current
+      sync_state: expire 30
+    - name: "OG-Z2 Licht Stromzähler"
+      state_address: "5/3/26"
+      type: active_energy
+      sync_state: expire 30
+
+    - name: "Ankleide Licht Betriebsstunden"
+      state_address: "5/3/42"
+      type: long_delta_timesec
+      sync_state: expire 30
+    - name: "Ankleide Licht Stromwert"
+      state_address: "5/3/45"
+      type: current
+      sync_state: expire 30
+    - name: "Ankleide Licht Stromzähler"
+      state_address: "5/3/46"
+      type: active_energy
+      sync_state: expire 30
+
+    - name: "Bad Licht Betriebsstunden"
+      state_address: "5/3/62"
+      type: long_delta_timesec
+      sync_state: expire 30
+    - name: "Bad Licht Stromwert"
+      state_address: "5/3/65"
+      type: current
+      sync_state: expire 30
+    - name: "Bad Licht Stromzähler"
+      state_address: "5/3/66"
+      type: active_energy
+      sync_state: expire 30
+
+    - name: "EG-KEW-TA1 Temperatur"
+      state_address: "3/2/5"
+      type: temperature
+      sync_state: expire 30
+
+    - name: "OG-Z1-TA1 Temperatur"
+      state_address: "3/3/5"
+      type: temperature
+      sync_state: expire 30
+
+    - name: "OG-Z2-TA1 Temperatur"
+      state_address: "3/3/25"
+      type: temperature
+      sync_state: expire 30
+
+    - name: "OG-Z3-TA1 Temperatur"
+      state_address: "3/3/45"
+      type: temperature
+      sync_state: expire 30
+
+  binary_sensor:
+
+    - name: "KG-Z4-LS1"
+      state_address: "1/1/1"
+      device_class: "problem"
+      sync_state: expire 30
+
+    - name: "OG-Z1 Licht Lastausfall"
+      state_address: "5/3/8"
+      device_class: "problem"
+      sync_state: expire 30
+      
+    - name: "OG-Z2 Licht Lastausfall"
+      state_address: "5/3/28"
+      device_class: "problem"
+      sync_state: expire 30
+      
+    - name: "Ankleide Licht Lastausfall"
+      state_address: "5/3/48"
+      device_class: "problem"
+      sync_state: expire 30
+      
+    - name: "Bad Licht Lastausfall"
+      state_address: "5/3/68"
+      device_class: "problem"
+      sync_state: expire 30
+
+    - name: "OG-Z1 Status Beschattung Automatikmodus"
+      state_address: "6/7/15"
+      sync_state: expire 300
+    - name: "OG-Z2 Status Beschattung Automatikmodus"
+      state_address: "6/7/5"
+      sync_state: expire 300
+
+  light:
+    - name: "Licht OG-Z1"
+      address: "4/3/20"
+      state_address: "5/3/1"
+    - name: "Licht OG-Z1 (Schaltaktor)"
+      address: "5/3/0"
+      state_address: "5/3/1"
+
+    - name: "Licht OG-Z2"
+      address: "4/3/60"
+      state_address: "5/3/21"
+    - name: "Licht OG-Z2 (Schaltaktor)"
+      address: "5/3/20"
+      state_address: "5/3/21"
+
+    - name: "Licht Ankleide"
+      address: "5/3/40"
+      state_address: "5/3/41"
+    - name: "Licht Bad"
+      address: "5/3/60"
+      state_address: "5/3/61"
+
+    - name: "Licht KG-Z2"
+      address: "5/1/21"
+      state_address: "5/1/22"
+
+    - name: "Licht KG-Z3"
+      address: "5/1/41"
+      state_address: "5/1/42"
+
+    - name: "Licht KG-Z4"
+      address: "5/1/61"
+      state_address: "5/1/62"
+      brightness_address: "5/1/64"
+      brightness_state_address: "5/1/65"
+
+    - name: "Licht KG-Z5"
+      address: "5/1/81"
+      state_address: "5/1/82"
+
+sensor:
+
+  - name: "lwav_compressor_runtime_today"
+    unique_id: lwav_compressor_runtime_today
+    platform: history_stats
+    entity_id: binary_sensor.lwav_compressor_running
+    state: "on"
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+
+  - name: "lwav_compressor_runtime_ratio_today"
+    unique_id: lwav_compressor_runtime_ratio_today
+    platform: history_stats
+    entity_id: binary_sensor.lwav_compressor_running
+    state: "on"
+    type: ratio
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+
+  - name: "lwav_compressor_cycles_today"
+    unique_id: lwav_compressor_cycles_today
+    platform: history_stats
+    entity_id: binary_sensor.lwav_compressor_running
+    state: "on"
+    type: count
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+
+  - name: "lwav_circulating_pump_heating_runtime_today"
+    unique_id: lwav_circulating_pump_heating_runtime_today
+    platform: history_stats
+    entity_id: switch.lwav_circulating_pump_heating
+    state: "on"
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+
+  - name: "lwav_circulating_pump_heating_runtime_ratio_today"
+    unique_id: lwav_circulating_pump_heating_runtime_ratio_today
+    platform: history_stats
+    entity_id: switch.lwav_circulating_pump_heating
+    state: "on"
+    type: ratio
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+
+  - name: "lwav_circulating_pump_hot_water_runtime_today"
+    unique_id: lwav_circulating_pump_hot_water_runtime_today
+    platform: history_stats
+    entity_id: switch.lwav_circulating_pump_hot_water
+    state: "on"
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+
+
+  - name: E3DC Solar Energy
+    unique_id: e3dc_solar_energy
+    platform: integration
+    source: sensor.e3dc_solar_power
+    unit_prefix: k
+    round: 2
+    method: left
+
+  # TODO REMOVE Since this isn't needed?
+  - name: E3DC Battery Energy
+    unique_id: e3dc_battery_energy
+    platform: integration
+    source: sensor.e3dc_battery_power
+    unit_prefix: k
+    round: 2
+    method: left
+
+  - name: E3DC Battery Charging Energy
+    unique_id: e3dc_battery_charging_energy
+    platform: integration
+    source: sensor.e3dc_battery_charging_power
+    unit_prefix: k
+    round: 2
+    method: left
+
+  - name: E3DC Battery Discharging Energy
+    unique_id: e3dc_battery_discharging_energy
+    platform: integration
+    source: sensor.e3dc_battery_discharging_power
+    unit_prefix: k
+    round: 2
+    method: left
+
+  - name: E3DC Domestic Energy
+    unique_id: e3dc_domestic_energy
+    platform: integration
+    source: sensor.e3dc_domestic_power
+    unit_prefix: k
+    round: 2
+    method: left
+
+  - name: E3DC Grid Import Energy
+    unique_id: e3dc_grid_import_energy
+    platform: integration
+    source: sensor.e3dc_grid_import_power
+    unit_prefix: k
+    round: 2
+    method: left
+
+  - name: E3DC Grid Export Energy
+    unique_id: e3dc_grid_export_energy
+    platform: integration
+    source: sensor.e3dc_grid_export_power
+    unit_prefix: k
+    round: 2
+    method: left
+
+utility_meter:
+
+  e3dc_solar_energy_hourly:
+    name: "E3DC Solar Energy (hourly)"
+    unique_id: e3dc_solar_energy_hourly
+    source: sensor.e3dc_solar_energy
+    cycle: hourly
+
+  e3dc_solar_energy_daily:
+    name: "E3DC Solar Energy (daily)"
+    unique_id: e3dc_solar_energy_daily
+    source: sensor.e3dc_solar_energy
+    cycle: daily
+
+  e3dc_solar_energy_weekly:
+    name: "E3DC Solar Energy (weekly)"
+    unique_id: e3dc_solar_energy_weekly
+    source: sensor.e3dc_solar_energy
+    cycle: weekly
+
+  e3dc_solar_energy_monthly:
+    name: "E3DC Solar Energy (monthly)"
+    unique_id: e3dc_solar_energy_monthly
+    source: sensor.e3dc_solar_energy
+    cycle: monthly
+
+  e3dc_solar_energy_yearly:
+    name: "E3DC Solar Energy (yearly)"
+    unique_id: e3dc_solar_energy_yearly
+    source: sensor.e3dc_solar_energy
+    cycle: yearly
+
+  # TODO REMOVE Since this doesn't represent anything useful?
+  e3dc_battery_energy_hourly:
+    name: "E3DC Battery Energy (hourly)"
+    unique_id: e3dc_battery_energy_hourly
+    source: sensor.e3dc_battery_energy
+    cycle: hourly
+
+  # TODO REMOVE Since this doesn't represent anything useful?
+  e3dc_battery_energy_daily:
+    name: "E3DC Battery Energy (daily)"
+    unique_id: e3dc_battery_energy_daily
+    source: sensor.e3dc_battery_energy
+    cycle: daily
+
+  # TODO REMOVE Since this doesn't represent anything useful?
+  e3dc_battery_energy_weekly:
+    name: "E3DC Battery Energy (weekly)"
+    unique_id: e3dc_battery_energy_weekly
+    source: sensor.e3dc_battery_energy
+    cycle: weekly
+
+  # TODO REMOVE Since this doesn't represent anything useful?
+  e3dc_battery_energy_monthly:
+    name: "E3DC Battery Energy (monthly)"
+    unique_id: e3dc_battery_energy_monthly
+    source: sensor.e3dc_battery_energy
+    cycle: monthly
+
+  # TODO REMOVE Since this doesn't represent anything useful?
+  e3dc_battery_energy_yearly:
+    name: "E3DC Battery Energy (yearly)"
+    unique_id: e3dc_battery_energy_yearly
+    source: sensor.e3dc_battery_energy
+    cycle: yearly
+
+
+  e3dc_battery_charging_energy_hourly:
+    name: "E3DC Battery Charging Energy (hourly)"
+    unique_id: e3dc_battery_charging_energy_hourly
+    source: sensor.e3dc_battery_charging_energy
+    cycle: hourly
+
+  e3dc_battery_charging_energy_daily:
+    name: "E3DC Battery Charging Energy (daily)"
+    unique_id: e3dc_battery_charging_energy_daily
+    source: sensor.e3dc_battery_charging_energy
+    cycle: daily
+
+  e3dc_battery_charging_energy_weekly:
+    name: "E3DC Battery Charging Energy (weekly)"
+    unique_id: e3dc_battery_charging_energy_weekly
+    source: sensor.e3dc_battery_charging_energy
+    cycle: weekly
+
+  e3dc_battery_charging_energy_monthly:
+    name: "E3DC Battery Charging Energy (monthly)"
+    unique_id: e3dc_battery_charging_energy_monthly
+    source: sensor.e3dc_battery_charging_energy
+    cycle: monthly
+
+  e3dc_battery_charging_energy_yearly:
+    name: "E3DC Battery Charging Energy (yearly)"
+    unique_id: e3dc_battery_charging_energy_yearly
+    source: sensor.e3dc_battery_charging_energy
+    cycle: yearly
+
+
+  e3dc_battery_discharging_energy_hourly:
+    name: "E3DC Battery Discharging Energy (hourly)"
+    unique_id: e3dc_battery_discharging_energy_hourly
+    source: sensor.e3dc_battery_discharging_energy
+    cycle: hourly
+
+  e3dc_battery_discharging_energy_daily:
+    name: "E3DC Battery Discharging Energy (daily)"
+    unique_id: e3dc_battery_discharging_energy_daily
+    source: sensor.e3dc_battery_discharging_energy
+    cycle: daily
+
+  e3dc_battery_discharging_energy_weekly:
+    name: "E3DC Battery Discharging Energy (weekly)"
+    unique_id: e3dc_battery_discharging_energy_weekly
+    source: sensor.e3dc_battery_discharging_energy
+    cycle: weekly
+
+  e3dc_battery_discharging_energy_monthly:
+    name: "E3DC Battery Discharging Energy (monthly)"
+    unique_id: e3dc_battery_discharging_energy_monthly
+    source: sensor.e3dc_battery_discharging_energy
+    cycle: monthly
+
+  e3dc_battery_discharging_energy_yearly:
+    name: "E3DC Battery Discharging Energy (yearly)"
+    unique_id: e3dc_battery_discharging_energy_yearly
+    source: sensor.e3dc_battery_discharging_energy
+    cycle: yearly
+
+
+  e3dc_domestic_energy_hourly:
+    name: "E3DC Domestic Energy (hourly)"
+    unique_id: e3dc_domestic_energy_hourly
+    source: sensor.e3dc_domestic_energy
+    cycle: hourly
+
+  e3dc_domestic_energy_daily:
+    name: "E3DC Domestic Energy (daily)"
+    unique_id: e3dc_domestic_energy_daily
+    source: sensor.e3dc_domestic_energy
+    cycle: daily
+
+  e3dc_domestic_energy_weekly:
+    name: "E3DC Domestic Energy (weekly)"
+    unique_id: e3dc_domestic_energy_weekly
+    source: sensor.e3dc_domestic_energy
+    cycle: weekly
+
+  e3dc_domestic_energy_monthly:
+    name: "E3DC Domestic Energy (monthly)"
+    unique_id: e3dc_domestic_energy_monthly
+    source: sensor.e3dc_domestic_energy
+    cycle: monthly
+
+  e3dc_domestic_energy_yearly:
+    name: "E3DC Domestic Energy (yearly)"
+    unique_id: e3dc_domestic_energy_yearly
+    source: sensor.e3dc_domestic_energy
+    cycle: yearly
+
+
+  e3dc_grid_import_energy_hourly:
+    name: "E3DC Grid Import Energy (hourly)"
+    unique_id: e3dc_grid_import_energy_hourly
+    source: sensor.e3dc_grid_import_energy
+    cycle: hourly
+
+  e3dc_grid_import_energy_daily:
+    name: "E3DC Grid Import Energy (daily)"
+    unique_id: e3dc_grid_import_energy_daily
+    source: sensor.e3dc_grid_import_energy
+    cycle: daily
+
+  e3dc_grid_import_energy_weekly:
+    name: "E3DC Grid Import Energy (weekly)"
+    unique_id: e3dc_grid_import_energy_weekly
+    source: sensor.e3dc_grid_import_energy
+    cycle: weekly
+
+  e3dc_grid_import_energy_monthly:
+    name: "E3DC Grid Import Energy (monthly)"
+    unique_id: e3dc_grid_import_energy_monthly
+    source: sensor.e3dc_grid_import_energy
+    cycle: monthly
+
+  e3dc_grid_import_energy_yearly:
+    name: "E3DC Grid Import Energy (yearly)"
+    unique_id: e3dc_grid_import_energy_yearly
+    source: sensor.e3dc_grid_import_energy
+    cycle: yearly
+
+
+  e3dc_grid_export_energy_hourly:
+    name: "E3DC Grid Export Energy (hourly)"
+    unique_id: e3dc_grid_export_energy_hourly
+    source: sensor.e3dc_grid_export_energy
+    cycle: hourly
+
+  e3dc_grid_export_energy_daily:
+    name: "E3DC Grid Export Energy (daily)"
+    unique_id: e3dc_grid_export_energy_daily
+    source: sensor.e3dc_grid_export_energy
+    cycle: daily
+
+  e3dc_grid_export_energy_weekly:
+    name: "E3DC Grid Export Energy (weekly)"
+    unique_id: e3dc_grid_export_energy_weekly
+    source: sensor.e3dc_grid_export_energy
+    cycle: weekly
+
+  e3dc_grid_export_energy_monthly:
+    name: "E3DC Grid Export Energy (monthly)"
+    unique_id: e3dc_grid_export_energy_monthly
+    source: sensor.e3dc_grid_export_energy
+    cycle: monthly
+
+  e3dc_grid_export_energy_yearly:
+    name: "E3DC Grid Export Energy (yearly)"
+    unique_id: e3dc_grid_export_energy_yearly
+    source: sensor.e3dc_grid_export_energy
+    cycle: yearly
+
+
+  lwav_heat_quantity_heating_hourly:
+    name: "LWAV Heat Quantity Heating (hourly)"
+    unique_id: lwav_heat_quantity_heating_hourly
+    source: sensor.lwav_heat_quantity_heating
+    cycle: hourly
+
+  lwav_heat_quantity_heating_daily:
+    name: "LWAV Heat Quantity Heating (daily)"
+    unique_id: lwav_heat_quantity_heating_daily
+    source: sensor.lwav_heat_quantity_heating
+    cycle: daily
+
+  lwav_heat_quantity_heating_weekly:
+    name: "LWAV Heat Quantity Heating (weekly)"
+    unique_id: lwav_heat_quantity_heating_weekly
+    source: sensor.lwav_heat_quantity_heating
+    cycle: weekly
+
+  lwav_heat_quantity_heating_monthly:
+    name: "LWAV Heat Quantity Heating (monthly)"
+    unique_id: lwav_heat_quantity_heating_monthly
+    source: sensor.lwav_heat_quantity_heating
+    cycle: monthly
+
+  lwav_heat_quantity_heating_yearly:
+    name: "LWAV Heat Quantity Heating (yearly)"
+    unique_id: lwav_heat_quantity_heating_yearly
+    source: sensor.lwav_heat_quantity_heating
+    cycle: yearly
+
+
+  lwav_heat_quantity_hot_water_hourly:
+    name: "LWAV Heat Quantity Hot Water (hourly)"
+    unique_id: lwav_heat_quantity_hot_water_hourly
+    source: sensor.lwav_heat_quantity_hot_water
+    cycle: hourly
+
+  lwav_heat_quantity_hot_water_daily:
+    name: "LWAV Heat Quantity Hot Water (daily)"
+    unique_id: lwav_heat_quantity_hot_water_daily
+    source: sensor.lwav_heat_quantity_hot_water
+    cycle: daily
+
+  lwav_heat_quantity_hot_water_weekly:
+    name: "LWAV Heat Quantity Hot Water (weekly)"
+    unique_id: lwav_heat_quantity_hot_water_weekly
+    source: sensor.lwav_heat_quantity_hot_water
+    cycle: weekly
+
+  lwav_heat_quantity_hot_water_monthly:
+    name: "LWAV Heat Quantity Hot Water (monthly)"
+    unique_id: lwav_heat_quantity_hot_water_monthly
+    source: sensor.lwav_heat_quantity_hot_water
+    cycle: monthly
+
+  lwav_heat_quantity_hot_water_yearly:
+    name: "LWAV Heat Quantity Hot Water (yearly)"
+    unique_id: lwav_heat_quantity_hot_water_yearly
+    source: sensor.lwav_heat_quantity_hot_water
+    cycle: yearly
+
+
+  lwav_heat_quantity_total_hourly:
+    name: "LWAV Heat Quantity Total (hourly)"
+    unique_id: lwav_heat_quantity_total_hourly
+    source: sensor.lwav_heat_quantity_total
+    cycle: hourly
+
+  lwav_heat_quantity_total_daily:
+    name: "LWAV Heat Quantity Total (daily)"
+    unique_id: lwav_heat_quantity_total_daily
+    source: sensor.lwav_heat_quantity_total
+    cycle: daily
+
+  lwav_heat_quantity_total_weekly:
+    name: "LWAV Heat Quantity Total (weekly)"
+    unique_id: lwav_heat_quantity_total_weekly
+    source: sensor.lwav_heat_quantity_total
+    cycle: weekly
+
+  lwav_heat_quantity_total_monthly:
+    name: "LWAV Heat Quantity Total (monthly)"
+    unique_id: lwav_heat_quantity_total_monthly
+    source: sensor.lwav_heat_quantity_total
+    cycle: monthly
+
+  lwav_heat_quantity_total_yearly:
+    name: "LWAV Heat Quantity Total (yearly)"
+    unique_id: lwav_heat_quantity_total_yearly
+    source: sensor.lwav_heat_quantity_total
+    cycle: yearly
+
+
+  lwav_energy_input_heating_hourly:
+    name: "LWAV Energy Input Heating (hourly)"
+    unique_id: lwav_energy_input_heating_hourly
+    source: sensor.lwav_energy_input_heating
+    cycle: hourly
+
+  lwav_energy_input_heating_daily:
+    name: "LWAV Energy Input Heating (daily)"
+    unique_id: lwav_energy_input_heating_daily
+    source: sensor.lwav_energy_input_heating
+    cycle: daily
+
+  lwav_energy_input_heating_weekly:
+    name: "LWAV Energy Input Heating (weekly)"
+    unique_id: lwav_energy_input_heating_weekly
+    source: sensor.lwav_energy_input_heating
+    cycle: weekly
+
+  lwav_energy_input_heating_monthly:
+    name: "LWAV Energy Input Heating (monthly)"
+    unique_id: lwav_energy_input_heating_monthly
+    source: sensor.lwav_energy_input_heating
+    cycle: monthly
+
+  lwav_energy_input_heating_yearly:
+    name: "LWAV Energy Input Heating (yearly)"
+    unique_id: lwav_energy_input_heating_yearly
+    source: sensor.lwav_energy_input_heating
+    cycle: yearly
+
+
+  lwav_energy_input_hot_water_hourly:
+    name: "LWAV Energy Input Hot Water (hourly)"
+    unique_id: lwav_energy_input_hot_water_hourly
+    source: sensor.lwav_energy_input_hot_water
+    cycle: hourly
+
+  lwav_energy_input_hot_water_daily:
+    name: "LWAV Energy Input Hot Water (daily)"
+    unique_id: lwav_energy_input_hot_water_daily
+    source: sensor.lwav_energy_input_hot_water
+    cycle: daily
+
+  lwav_energy_input_hot_water_weekly:
+    name: "LWAV Energy Input Hot Water (weekly)"
+    unique_id: lwav_energy_input_hot_water_weekly
+    source: sensor.lwav_energy_input_hot_water
+    cycle: weekly
+
+  lwav_energy_input_hot_water_monthly:
+    name: "LWAV Energy Input Hot Water (monthly)"
+    unique_id: lwav_energy_input_hot_water_monthly
+    source: sensor.lwav_energy_input_hot_water
+    cycle: monthly
+
+  lwav_energy_input_hot_water_yearly:
+    name: "LWAV Energy Input Hot Water (yearly)"
+    unique_id: lwav_energy_input_hot_water_yearly
+    source: sensor.lwav_energy_input_hot_water
+    cycle: yearly
+
+
+  lwav_energy_input_cooling_hourly:
+    name: "LWAV Energy Input Cooling (hourly)"
+    unique_id: lwav_energy_input_cooling_hourly
+    source: sensor.lwav_energy_input_cooling
+    cycle: hourly
+
+  lwav_energy_input_cooling_daily:
+    name: "LWAV Energy Input Cooling (daily)"
+    unique_id: lwav_energy_input_cooling_daily
+    source: sensor.lwav_energy_input_cooling
+    cycle: daily
+
+  lwav_energy_input_cooling_weekly:
+    name: "LWAV Energy Input Cooling (weekly)"
+    unique_id: lwav_energy_input_cooling_weekly
+    source: sensor.lwav_energy_input_cooling
+    cycle: weekly
+
+  lwav_energy_input_cooling_monthly:
+    name: "LWAV Energy Input Cooling (monthly)"
+    unique_id: lwav_energy_input_cooling_monthly
+    source: sensor.lwav_energy_input_cooling
+    cycle: monthly
+
+  lwav_energy_input_cooling_yearly:
+    name: "LWAV Energy Input Cooling (yearly)"
+    unique_id: lwav_energy_input_cooling_yearly
+    source: sensor.lwav_energy_input_cooling
+    cycle: yearly
+
+
+  lwav_energy_input_total_hourly:
+    name: "LWAV Energy Input Total (hourly)"
+    unique_id: lwav_energy_input_total_hourly
+    source: sensor.lwav_energy_input_total
+    cycle: hourly
+
+  lwav_energy_input_total_daily:
+    name: "LWAV Energy Input Total (daily)"
+    unique_id: lwav_energy_input_total_daily
+    source: sensor.lwav_energy_input_total
+    cycle: daily
+
+  lwav_energy_input_total_weekly:
+    name: "LWAV Energy Input Total (weekly)"
+    unique_id: lwav_energy_input_total_weekly
+    source: sensor.lwav_energy_input_total
+    cycle: weekly
+
+  lwav_energy_input_total_monthly:
+    name: "LWAV Energy Input Total (monthly)"
+    unique_id: lwav_energy_input_total_monthly
+    source: sensor.lwav_energy_input_total
+    cycle: monthly
+
+  lwav_energy_input_total_yearly:
+    name: "LWAV Energy Input Total (yearly)"
+    unique_id: lwav_energy_input_total_yearly
+    source: sensor.lwav_energy_input_total
+    cycle: yearly
+
+template:
+
+  - sensor:
+
+    - name: Sonnenelevation
+      unit_of_measurement: "°"
+      state: "{{ '%+.1f'| format(state_attr('sun.sun', 'elevation')) }}"
+
+    - name: Sonnenazimuth
+      unit_of_measurement: "°"
+      state: "{{ '%+.1f'| format(state_attr('sun.sun', 'azimuth')) }}"
+
+
+    - name: "LWAV COP Heating (hourly)"
+      unique_id: lwav_cop_heating_hourly
+      state_class: measurement
+      state: >-
+        {% set heat_quantity = states('sensor.lwav_heat_quantity_heating_hourly') | float(0) %}
+        {% set energy_input = states('sensor.lwav_energy_input_heating_hourly') | float(0) %}
+        {% set cop = ((heat_quantity / energy_input) | round(1, default=0)) if energy_input > 0 else 0 %}
+        {{ cop | default(0) }}
+
+    - name: "LWAV COP Heating (daily)"
+      unique_id: lwav_cop_heating_daily
+      state_class: measurement
+      state: >-
+        {% set heat_quantity = states('sensor.lwav_heat_quantity_heating_daily') | float(0) %}
+        {% set energy_input = states('sensor.lwav_energy_input_heating_daily') | float(0) %}
+        {% set cop = ((heat_quantity / energy_input) | round(1, default=0)) if energy_input > 0 else 0 %}
+        {{ cop | default(0) }}
+
+    - name: "LWAV COP Heating (weekly)"
+      unique_id: lwav_cop_heating_weekly
+      state_class: measurement
+      state: >-
+        {% set heat_quantity = states('sensor.lwav_heat_quantity_heating_weekly') | float(0) %}
+        {% set energy_input = states('sensor.lwav_energy_input_heating_weekly') | float(0) %}
+        {% set cop = ((heat_quantity / energy_input) | round(1, default=0)) if energy_input > 0 else 0 %}
+        {{ cop | default(0) }}
+
+    - name: "LWAV COP Heating (monthly)"
+      unique_id: lwav_cop_heating_monthly
+      state_class: measurement
+      state: >-
+        {% set heat_quantity = states('sensor.lwav_heat_quantity_heating_monthly') | float(0) %}
+        {% set energy_input = states('sensor.lwav_energy_input_heating_monthly') | float(0) %}
+        {% set cop = ((heat_quantity / energy_input) | round(1, default=0)) if energy_input > 0 else 0 %}
+        {{ cop | default(0) }}
+
+    - name: "LWAV COP Heating (yearly)"
+      unique_id: lwav_cop_heating_yearly
+      state_class: measurement
+      state: >-
+        {% set heat_quantity = states('sensor.lwav_heat_quantity_heating_yearly') | float(0) %}
+        {% set energy_input = states('sensor.lwav_energy_input_heating_yearly') | float(0) %}
+        {% set cop = ((heat_quantity / energy_input) | round(1, default=0)) if energy_input > 0 else 0 %}
+        {{ cop | default(0) }}
+
+
+    - name: "LWAV COP Hot Water (hourly)"
+      unique_id: lwav_cop_hot_water_hourly
+      state_class: measurement
+      state: >-
+        {% set heat_quantity = states('sensor.lwav_heat_quantity_hot_water_hourly') | float(0) %}
+        {% set energy_input = states('sensor.lwav_energy_input_hot_water_hourly') | float(0) %}
+        {% set cop = ((heat_quantity / energy_input) | round(1, default=0)) if energy_input > 0 else 0 %}
+        {{ cop | default(0) }}
+
+    - name: "LWAV COP Hot Water (daily)"
+      unique_id: lwav_cop_hot_water_daily
+      state_class: measurement
+      state: >-
+        {% set heat_quantity = states('sensor.lwav_heat_quantity_hot_water_daily') | float(0) %}
+        {% set energy_input = states('sensor.lwav_energy_input_hot_water_daily') | float(0) %}
+        {% set cop = ((heat_quantity / energy_input) | round(1, default=0)) if energy_input > 0 else 0 %}
+        {{ cop | default(0) }}
+
+    - name: "LWAV COP Hot Water (weekly)"
+      unique_id: lwav_cop_hot_water_weekly
+      state_class: measurement
+      state: >-
+        {% set heat_quantity = states('sensor.lwav_heat_quantity_hot_water_weekly') | float(0) %}
+        {% set energy_input = states('sensor.lwav_energy_input_hot_water_weekly') | float(0) %}
+        {% set cop = ((heat_quantity / energy_input) | round(1, default=0)) if energy_input > 0 else 0 %}
+        {{ cop | default(0) }}
+
+    - name: "LWAV COP Hot Water (monthly)"
+      unique_id: lwav_cop_hot_water_monthly
+      state_class: measurement
+      state: >-
+        {% set heat_quantity = states('sensor.lwav_heat_quantity_hot_water_monthly') | float(0) %}
+        {% set energy_input = states('sensor.lwav_energy_input_hot_water_monthly') | float(0) %}
+        {% set cop = ((heat_quantity / energy_input) | round(1, default=0)) if energy_input > 0 else 0 %}
+        {{ cop | default(0) }}
+
+    - name: "LWAV COP Hot Water (yearly)"
+      unique_id: lwav_cop_hot_water_yearly
+      state_class: measurement
+      state: >-
+        {% set heat_quantity = states('sensor.lwav_heat_quantity_hot_water_yearly') | float(0) %}
+        {% set energy_input = states('sensor.lwav_energy_input_hot_water_yearly') | float(0) %}
+        {% set cop = ((heat_quantity / energy_input) | round(1, default=0)) if energy_input > 0 else 0 %}
+        {{ cop | default(0) }}
+
+
+    - name: "LWAV COP Cooling (hourly)"
+      unique_id: lwav_cop_cooling_hourly
+      state_class: measurement
+      state: >-
+        {% set heat_quantity = states('sensor.lwav_heat_quantity_cooling_hourly') | float(0) %}
+        {% set energy_input = states('sensor.lwav_energy_input_cooling_hourly') | float(0) %}
+        {% set cop = ((heat_quantity / energy_input) | round(1, default=0)) if energy_input > 0 else 0 %}
+        {{ cop | default(0) }}
+
+    - name: "LWAV COP Cooling (daily)"
+      unique_id: lwav_cop_cooling_daily
+      state_class: measurement
+      state: >-
+        {% set heat_quantity = states('sensor.lwav_heat_quantity_cooling_daily') | float(0) %}
+        {% set energy_input = states('sensor.lwav_energy_input_cooling_daily') | float(0) %}
+        {% set cop = ((heat_quantity / energy_input) | round(1, default=0)) if energy_input > 0 else 0 %}
+        {{ cop | default(0) }}
+
+    - name: "LWAV COP Cooling (weekly)"
+      unique_id: lwav_cop_cooling_weekly
+      state_class: measurement
+      state: >-
+        {% set heat_quantity = states('sensor.lwav_heat_quantity_cooling_weekly') | float(0) %}
+        {% set energy_input = states('sensor.lwav_energy_input_cooling_weekly') | float(0) %}
+        {% set cop = ((heat_quantity / energy_input) | round(1, default=0)) if energy_input > 0 else 0 %}
+        {{ cop | default(0) }}
+
+    - name: "LWAV COP Cooling (monthly)"
+      unique_id: lwav_cop_cooling_monthly
+      state_class: measurement
+      state: >-
+        {% set heat_quantity = states('sensor.lwav_heat_quantity_cooling_monthly') | float(0) %}
+        {% set energy_input = states('sensor.lwav_energy_input_cooling_monthly') | float(0) %}
+        {% set cop = ((heat_quantity / energy_input) | round(1, default=0)) if energy_input > 0 else 0 %}
+        {{ cop | default(0) }}
+
+    - name: "LWAV COP Cooling (yearly)"
+      unique_id: lwav_cop_cooling_yearly
+      state_class: measurement
+      state: >-
+        {% set heat_quantity = states('sensor.lwav_heat_quantity_cooling_yearly') | float(0) %}
+        {% set energy_input = states('sensor.lwav_energy_input_cooling_yearly') | float(0) %}
+        {% set cop = ((heat_quantity / energy_input) | round(1, default=0)) if energy_input > 0 else 0 %}
+        {{ cop | default(0) }}
+
+
+    - name: "LWAV COP Total (hourly)"
+      unique_id: lwav_cop_total_hourly
+      state_class: measurement
+      state: >-
+        {% set heat_quantity = states('sensor.lwav_heat_quantity_total_hourly') | float(0) %}
+        {% set energy_input = states('sensor.lwav_energy_input_total_hourly') | float(0) %}
+        {% set cop = ((heat_quantity / energy_input) | round(1, default=0)) if energy_input > 0 else 0 %}
+        {{ cop | default(0) }}
+
+    - name: "LWAV COP Total (daily)"
+      unique_id: lwav_cop_total_daily
+      state_class: measurement
+      state: >-
+        {% set heat_quantity = states('sensor.lwav_heat_quantity_total_daily') | float(0) %}
+        {% set energy_input = states('sensor.lwav_energy_input_total_daily') | float(0) %}
+        {% set cop = ((heat_quantity / energy_input) | round(1, default=0)) if energy_input > 0 else 0 %}
+        {{ cop | default(0) }}
+
+    - name: "LWAV COP Total (weekly)"
+      unique_id: lwav_cop_total_weekly
+      state_class: measurement
+      state: >-
+        {% set heat_quantity = states('sensor.lwav_heat_quantity_total_weekly') | float(0) %}
+        {% set energy_input = states('sensor.lwav_energy_input_total_weekly') | float(0) %}
+        {% set cop = ((heat_quantity / energy_input) | round(1, default=0)) if energy_input > 0 else 0 %}
+        {{ cop | default(0) }}
+
+    - name: "LWAV COP Total (monthly)"
+      unique_id: lwav_cop_total_monthly
+      state_class: measurement
+      state: >-
+        {% set heat_quantity = states('sensor.lwav_heat_quantity_total_monthly') | float(0) %}
+        {% set energy_input = states('sensor.lwav_energy_input_total_monthly') | float(0) %}
+        {% set cop = ((heat_quantity / energy_input) | round(1, default=0)) if energy_input > 0 else 0 %}
+        {{ cop | default(0) }}
+
+    - name: "LWAV COP Total (yearly)"
+      unique_id: lwav_cop_total_yearly
+      state_class: measurement
+      state: >-
+        {% set heat_quantity = states('sensor.lwav_heat_quantity_total_yearly') | float(0) %}
+        {% set energy_input = states('sensor.lwav_energy_input_total_yearly') | float(0) %}
+        {% set cop = ((heat_quantity / energy_input) | round(1, default=0)) if energy_input > 0 else 0 %}
+        {{ cop | default(0) }}

@@ -1,0 +1,31 @@
+knx:
+
+  sensor:
+
+    - name: "OG-FL-PM1 Helligkeit"
+      state_address: "4/3/85"
+      type: illuminance
+      sync_state: expire 30
+
+    - name: "OG-FL-PM1 Temperatur"
+      state_address: "4/3/86"
+      type: temperature
+      sync_state: expire 300
+
+  binary_sensor:
+
+    - name: "OG-FL-PM1 P1 Bewegung"
+      state_address: "4/3/81"
+      sync_state: expire 30
+
+    - name: "OG-FL-PM1 P2 Bewegung"
+      state_address: "4/3/82"
+      sync_state: expire 30
+
+    - name: "OG-FL-PM1 P3 Bewegung"
+      state_address: "4/3/83"
+      sync_state: expire 30
+
+    - name: "OG-FL-PM1 P4 Bewegung"
+      state_address: "4/3/84"
+      sync_state: expire 30

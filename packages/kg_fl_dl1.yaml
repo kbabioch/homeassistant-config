@@ -1,0 +1,41 @@
+knx:
+
+  light:
+
+    - name: "kg_fl_dl1"
+      address: "5/1/101"
+      state_address: "5/1/102"
+
+  sensor:
+
+    - name: "kg_fl_dl1_operating_time_counter"
+      state_address: "5/1/103"
+      type: long_delta_timesec
+      sync_state: expire 30
+
+    - name: "kg_fl_dl1_current_meter"
+      state_address: "5/1/105"
+      type: current
+      sync_state: expire 30
+
+    - name: "kg_fl_dl1_energy_meter"
+      state_address: "5/1/106"
+      type: active_energy
+      sync_state: expire 30
+
+  binary_sensor:
+
+    - name: "kg_fl_dl1_load_failure"
+      state_address: "5/1/108"
+      device_class: "problem"
+      sync_state: expire 30
+
+  switch:
+
+    - name: "kg_fl_dl1_operating_time_counter_reset"
+      address: "5/1/104"
+      device_class: switch
+
+    - name: "kg_fl_dl1_energy_meter_reset"
+      address: "5/1/107"
+      device_class: switch

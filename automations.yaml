@@ -1,0 +1,192 @@
+- id: '1697112241215'
+  alias: Zirkulationspumpe einschalten
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.og_fl_pm1_p4_bewegung
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: template
+    value_template: '{{ (as_timestamp(now()) - as_timestamp(state_attr(this.entity_id,
+      ''last_triggered''), 0) > 3600) }}'
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.lwav_circulating_pump_hot_water
+    data: {}
+  - delay:
+      minutes: 1
+  - service: switch.turn_off
+    target:
+      entity_id: switch.lwav_circulating_pump_hot_water
+    data: {}
+  mode: single
+  max_exceeded: silent
+- id: '1697749601491'
+  alias: EG Beschattung morgens öffnen
+  description: Öffnet die Beschattung (Raffstoren und Rollos) im Erdgeschoss am Morgen
+    zu jeweils unterschiedlichen Uhrzeiten (Werktag, Feiertag, Bewegung, etc.)
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.og_fl_pm1_p1_bewegung
+    from: 'off'
+    to: 'on'
+    id: motion
+  - platform: time
+    at: 08:00:00
+    id: schedule
+  - platform: time
+    at: 09:00:00
+    id: schedule
+  condition:
+  - condition: or
+    conditions:
+    - condition: and
+      conditions:
+      - condition: time
+        after: 07:00:00
+      - condition: trigger
+        id:
+        - motion
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: 'on'
+      - condition: time
+        after: 08:00:00
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: 'off'
+      - condition: time
+        after: 09:00:00
+  - '{{ state_attr(this.entity_id, ''last_triggered'') | default(today_at(), true)
+    < today_at(''07:00'') }}'
+  action:
+  - service: cover.open_cover
+    data: {}
+    target:
+      entity_id:
+      - cover.eg_ra1
+      - cover.eg_ra2
+      - cover.eg_ra3
+      - cover.eg_ra4
+      - cover.eg_ro1
+      - cover.eg_ro2
+  - service: cover.set_cover_tilt_position
+    data:
+      tilt_position: 40
+    target:
+      entity_id:
+      - cover.eg_ra5
+      - cover.eg_ra6
+  mode: single
+- id: '1697750102233'
+  alias: Ungeöffnete Rollos im Obergeschoss morgens öffnen
+  description: Öffnet die ungeöffneten Rollos im Erdgeschoss am Morgen zu jeweils
+    unterschiedlichen Uhrzeiten (Werktag, Feiertag, etc.)
+  trigger:
+  - platform: time
+    at: 09:00:00
+    id: schedule
+  - platform: time
+    at: '10:00:00'
+    id: schedule
+  condition:
+  - condition: or
+    conditions:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: 'on'
+      - condition: time
+        after: 09:00:00
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: 'off'
+      - condition: time
+        after: '10:00:00'
+  action:
+  - service: cover.open_cover
+    target:
+      entity_id: '{{ states.cover | selectattr(''entity_id'', ''match'', ''cover.og_*'')
+        | selectattr(''state'', ''eq'', ''closed'') | map(attribute=''entity_id'')
+        | list | join('', '') }}'
+  mode: single
+- id: '1697112241515'
+  alias: Sync input_number and sensor for lwav_temparature_shift
+  description: Keeps input_number and sensor for lwav_temparature_shift in sync
+  trigger:
+  - platform: homeassistant
+    event: start
+    id: homeassistant_started
+  - platform: state
+    entity_id:
+    - sensor.lwav_temperature_shift
+    id: sensor_changed
+  - platform: state
+    entity_id:
+    - input_number.lwav_temperature_shift
+    id: input_changed
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - homeassistant_started
+      - sensor_changed
+    then:
+    - service: input_number.set_value
+      data:
+        value: '{{ states(''sensor.lwav_temperature_shift'') | float(0) }}'
+      target:
+        entity_id: input_number.lwav_temperature_shift
+  - if:
+    - condition: trigger
+      id:
+      - input_changed
+    then:
+    - service: modbus.write_register
+      data:
+        hub: lwav
+        slave: 1
+        address: 23
+        value: '{{ states(''input_number.lwav_temperature_shift'') | float(0) * 10
+          }}'
+  mode: single
+- id: '1697923154779'
+  alias: Wintermodus aktivieren
+  description: Wintermodus (Heizbetrieb) aktivieren
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.lwav_operating_status_text
+    to: Heizbetrieb
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.climate_summer_winter
+  mode: single
+- id: '1697923207184'
+  alias: Sommermodus aktivieren
+  description: Sommermodus (Kühlbetrieb) aktivieren
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.lwav_operating_status_text
+    to: Kühlung
+  condition: []
+  action:
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.climate_summer_winter
+  mode: single

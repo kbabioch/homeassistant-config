@@ -1,0 +1,512 @@
+modbus:
+  - name: "e3dc"
+    type: tcp
+    host: 192.168.1.11
+    port: 502
+
+    sensors:
+
+      - name: "E3DC Magic Byte"
+        unique_id: e3dc_magic_byte
+        slave: 1
+        address: 40000
+        data_type: uint16
+        scan_interval: 86400
+
+      - name: "E3DC Modbus Firmware Version"
+        unique_id: e3dc_modbus_firmware_version
+        slave: 1
+        address: 40001
+        data_type: uint16
+        scan_interval: 86400
+
+      - name: "E3DC Register Count"
+        unique_id: e3dc_register_count
+        slave: 1
+        address: 40002
+        data_type: uint16
+        scan_interval: 86400
+
+      - name: "E3DC Vendor"
+        unique_id: e3dc_vendor
+        slave: 1
+        address: 40003
+        count: 16
+        data_type: string
+        scan_interval: 86400
+
+      - name: "E3DC Model"
+        unique_id: e3dc_model
+        slave: 1
+        address: 40019
+        count: 16
+        data_type: string
+        scan_interval: 86400
+
+      - name: "E3DC Serial"
+        unique_id: e3dc_serial
+        slave: 1
+        address: 40035
+        count: 16
+        data_type: string
+        scan_interval: 86400
+
+      - name: "E3DC Firmware Release"
+        unique_id: e3dc_firmware_release
+        slave: 1
+        address: 40051
+        count: 16
+        data_type: string
+        scan_interval: 1800
+
+      - name: "E3DC Solar Power"
+        unique_id: e3dc_solar_power
+        slave: 1
+        address: 40067
+        data_type: int32
+        swap: word
+        scan_interval: 5
+        device_class: power
+        state_class: measurement
+        unit_of_measurement: "W"
+
+      - name: "E3DC Battery Power"
+        unique_id: e3dc_battery_power
+        slave: 1
+        address: 40069
+        data_type: int32
+        swap: word
+        scan_interval: 5
+        device_class: power
+        state_class: measurement
+        unit_of_measurement: "W"
+
+      - name: "E3DC Domestic Power"
+        unique_id: e3dc_domestic_power
+        slave: 1
+        address: 40071
+        data_type: int32
+        swap: word
+        scan_interval: 5
+        device_class: power
+        state_class: measurement
+        unit_of_measurement: "W"
+
+      - name: "E3DC Grid Power"
+        unique_id: e3dc_grid_power
+        slave: 1
+        address: 40073
+        data_type: int32
+        swap: word
+        scan_interval: 5
+        device_class: power
+        state_class: measurement
+        unit_of_measurement: "W"
+
+      #- name: "E3DC Additional Producers Power"
+      #  unique_id: e3dc_power_additional_producers
+      #  slave: 1
+      #  address: 40075
+      #  data_type: int32
+      #  swap: word
+      #  scan_interval: 5
+      #  device_class: power
+      #  state_class: measurement
+      #  unit_of_measurement: "W"
+
+      #- name: "E3DC Wallbox Power"
+      #  unique_id: e3dc_power_wallbox
+      #  slave: 1
+      #  address: 40077
+      #  data_type: int32
+      #  swap: word
+      #  scan_interval: 5
+      #  device_class: power
+      #  state_class: measurement
+      #  unit_of_measurement: "W"
+
+      #- name: "E3DC Wallbox Solar Power"
+      #  unique_id: e3dc_power_wallbox_solar
+      #  slave: 1
+      #  address: 40079
+      #  data_type: int32
+      #  swap: word
+      #  scan_interval: 5
+      #  device_class: power
+      #  state_class: measurement
+      #  unit_of_measurement: "W"
+
+      - name: "E3DC Autarky and Self Consumption"
+        unique_id: e3dc_autarky_and_self_consumption
+        slave: 1
+        address: 40081
+        data_type: uint16
+        scan_interval: 60
+
+      - name: "E3DC Battery SoC"
+        unique_id: e3dc_battery_soc
+        slave: 1
+        address: 40082
+        data_type: uint16
+        scan_interval: 60
+        device_class: battery
+        state_class: measurement
+        unit_of_measurement: "%"
+
+      - name: "E3DC Emergency Power Status"
+        unique_id: e3dc_emergency_power_status
+        slave: 1
+        address: 40083
+        data_type: uint16
+        scan_interval: 15
+
+      - name: "E3DC EMS Status"
+        unique_id: e3dc_ems_status
+        slave: 1
+        address: 40084
+        data_type: uint16
+        scan_interval: 15
+
+      - name: "E3DC String 1 Voltage"
+        unique_id: e3dc_string_1_voltage
+        slave: 1
+        address: 40095
+        data_type: uint16
+        scan_interval: 5
+        device_class: voltage
+        state_class: measurement
+        unit_of_measurement: "V"
+
+      - name: "E3DC String 2 Voltage"
+        unique_id: e3dc_string_2_voltage
+        slave: 1
+        address: 40096
+        data_type: uint16
+        scan_interval: 5
+        device_class: voltage
+        state_class: measurement
+        unit_of_measurement: "V"
+
+      - name: "E3DC String 1 Current"
+        unique_id: e3dc_string_1_current
+        slave: 1
+        address: 40098
+        data_type: uint16
+        scale: 0.01
+        scan_interval: 5
+        device_class: current
+        state_class: measurement
+        unit_of_measurement: "A"
+
+      - name: "E3DC String 2 Current"
+        unique_id: e3dc_string_2_current
+        slave: 1
+        address: 40099
+        data_type: uint16
+        scale: 0.01
+        scan_interval: 5
+        device_class: current
+        state_class: measurement
+        unit_of_measurement: "A"
+
+      - name: "E3DC String 1 Power"
+        unique_id: e3dc_string_1_power
+        slave: 1
+        address: 40101
+        data_type: uint16
+        scan_interval: 5
+        device_class: power
+        state_class: measurement
+        unit_of_measurement: "W"
+
+      - name: "E3DC String 2 Power"
+        unique_id: e3dc_string_2_power
+        slave: 1
+        address: 40102
+        data_type: uint16
+        scan_interval: 5
+        device_class: power
+        state_class: measurement
+        unit_of_measurement: "W"
+
+      - name: "E3DC SG Ready Status"
+        unique_id: e3dc_sg_ready_status
+        slave: 1
+        address: 40136
+        data_type: uint16
+        scan_interval: 15
+
+      - name: "E3DC Inverter AC Apparent Power L1"
+        unique_id: e3dc_inverter_ac_apparent_power_l1
+        slave: 1
+        address: 41000
+        data_type: int32
+        swap: word
+        scan_interval: 5
+        device_class: apparent_power
+        state_class: measurement
+        unit_of_measurement: "VA"
+
+      - name: "E3DC Inverter AC Apparent Power L2"
+        unique_id: e3dc_inverter_ac_apparent_power_l2
+        slave: 1
+        address: 41002
+        data_type: int32
+        swap: word
+        scan_interval: 5
+        device_class: apparent_power
+        state_class: measurement
+        unit_of_measurement: "VA"
+
+      - name: "E3DC Inverter AC Apparent Power L3"
+        unique_id: e3dc_inverter_ac_apparent_power_l3
+        slave: 1
+        address: 41004
+        data_type: int32
+        swap: word
+        scan_interval: 5
+        device_class: apparent_power
+        state_class: measurement
+        unit_of_measurement: "VA"
+
+      - name: "E3DC Inverter AC Power L1"
+        unique_id: e3dc_inverter_ac_power_l1
+        slave: 1
+        address: 41006
+        data_type: int32
+        swap: word
+        scan_interval: 5
+        device_class: power
+        state_class: measurement
+        unit_of_measurement: "W"
+
+      - name: "E3DC Inverter AC Power L2"
+        unique_id: e3dc_inverter_ac_power_l2
+        slave: 1
+        address: 41008
+        data_type: int32
+        swap: word
+        scan_interval: 5
+        device_class: power
+        state_class: measurement
+        unit_of_measurement: "W"
+
+      - name: "E3DC Inverter AC Power L3"
+        unique_id: e3dc_inverter_ac_power_l3
+        slave: 1
+        address: 41010
+        data_type: int32
+        swap: word
+        scan_interval: 5
+        device_class: power
+        state_class: measurement
+        unit_of_measurement: "W"
+
+      - name: "E3DC Inverter AC Reactive Power L1"
+        unique_id: e3dc_inverter_ac_reactive_power_l1
+        slave: 1
+        address: 41012
+        data_type: int32
+        swap: word
+        scan_interval: 5
+        device_class: reactive_power
+        state_class: measurement
+        unit_of_measurement: "var"
+
+      - name: "E3DC Inverter AC Reactive Power L2"
+        unique_id: e3dc_inverter_ac_reactive_power_l2
+        slave: 1
+        address: 41014
+        data_type: int32
+        swap: word
+        scan_interval: 5
+        device_class: reactive_power
+        state_class: measurement
+        unit_of_measurement: "var"
+
+      - name: "E3DC Inverter AC Reactive Power L3"
+        unique_id: e3dc_inverter_ac_reactive_power_l3
+        slave: 1
+        address: 41016
+        data_type: int32
+        swap: word
+        scan_interval: 5
+        device_class: reactive_power
+        state_class: measurement
+        unit_of_measurement: "var"
+
+      - name: "E3DC Inverter AC Voltage L1"
+        unique_id: e3dc_inverter_ac_voltage_l1
+        slave: 1
+        address: 41018
+        data_type: int16
+        scale: 0.1
+        scan_interval: 5
+        device_class: voltage
+        state_class: measurement
+        unit_of_measurement: "V"
+
+      - name: "E3DC Inverter AC Voltage L2"
+        unique_id: e3dc_inverter_ac_voltage_l2
+        slave: 1
+        address: 41019
+        data_type: int16
+        scale: 0.1
+        scan_interval: 5
+        device_class: voltage
+        state_class: measurement
+        unit_of_measurement: "V"
+
+      - name: "E3DC Inverter AC Voltage L3"
+        unique_id: e3dc_inverter_ac_voltage_l3
+        slave: 1
+        address: 41020
+        data_type: int16
+        scale: 0.1
+        scan_interval: 5
+        device_class: voltage
+        state_class: measurement
+        unit_of_measurement: "V"
+
+      - name: "E3DC Inverter AC Current L1"
+        unique_id: e3dc_inverter_ac_current_l1
+        slave: 1
+        address: 41021
+        data_type: int16
+        scale: 0.01
+        scan_interval: 5
+        device_class: current
+        state_class: measurement
+        unit_of_measurement: "A"
+
+      - name: "E3DC Inverter AC Current L2"
+        unique_id: e3dc_inverter_ac_current_l2
+        slave: 1
+        address: 41022
+        data_type: int16
+        scale: 0.01
+        scan_interval: 5
+        device_class: current
+        state_class: measurement
+        unit_of_measurement: "A"
+
+      - name: "E3DC Inverter AC Current L3"
+        unique_id: e3dc_inverter_ac_current_l3
+        slave: 1
+        address: 41023
+        data_type: int16
+        scale: 0.01
+        scan_interval: 5
+        device_class: current
+        state_class: measurement
+        unit_of_measurement: "A"
+
+      - name: "E3DC Inverter AC Frequency"
+        unique_id: e3dc_inverter_ac_frequency
+        slave: 1
+        address: 41024
+        data_type: int16
+        scale: 0.01
+        scan_interval: 5
+        device_class: frequency
+        state_class: measurement
+        unit_of_measurement: "Hz"
+
+template:
+
+  sensor:
+
+    - name: "E3DC Grid Import Power"
+      unique_id: "e3dc_grid_import_power"
+      device_class: power
+      state_class: measurement
+      unit_of_measurement: W
+      state: >-
+        {% set power = states('sensor.e3dc_grid_power') | int(0) %}
+        {% if power > 0 %}
+          {{ power }}
+        {% else %}
+          0
+        {% endif %}
+
+    - name: "E3DC Grid Export Power"
+      unique_id: "e3dc_grid_export_power"
+      device_class: power
+      state_class: measurement
+      unit_of_measurement: W
+      state: >-
+        {% set power = states('sensor.e3dc_grid_power') | int(0) %}
+        {% if power > 0 %}
+          0
+        {% else %}
+          {{ power | abs }}
+        {% endif %}
+
+    - name: "E3DC Battery Charging Power"
+      unique_id: "e3dc_battery_charging_power"
+      device_class: power
+      state_class: measurement
+      unit_of_measurement: W
+      state: >-
+        {% set power = states('sensor.e3dc_battery_power') | int(0) %}
+        {% if power > 0 %}
+          {{ power }}
+        {% else %}
+          0
+        {% endif %}
+
+    - name: "E3DC Battery Discharging Power"
+      unique_id: "e3dc_battery_discharging_power"
+      device_class: power
+      state_class: measurement
+      unit_of_measurement: W
+      state: >-
+        {% set power = states('sensor.e3dc_battery_power') | int(0) %}
+        {% if power > 0 %}
+          0
+        {% else %}
+          {{ power | abs }}
+        {% endif %}
+
+    - name: "E3DC Excess Power"
+      unique_id: "e3dc_excess_power"
+      device_class: power
+      state_class: measurement
+      unit_of_measurement: W
+      state: "{{ states('sensor.e3dc_solar_power') | int(0) - states('sensor.e3dc_domestic_power') | int(0) }}"
+
+    - name: "E3DC Autarky"
+      unique_id: e3dc_autarky
+      #device_class: percent
+      state_class: measurement
+      unit_of_measurement: "%"
+      state: "{{ (states('sensor.e3dc_autarky_and_self_consumption') | int(0) / 256) | round(0, 'floor') }}"
+
+    - name: "E3DC Self Consumption"
+      unique_id: e3dc_self_consumption
+      #device_class: percent
+      state_class: measurement
+      unit_of_measurement: "%"
+      state: "{{ (states('sensor.e3dc_autarky_and_self_consumption') | int(0) % 256) | round(0, 'floor') }}"
+
+    - name: "E3DC Emergency Power Status Text"
+      unique_id: e3dc_emergency_power_status_text
+      device_class: enum
+      state: >-
+        {%
+          set statemap = {
+            '0': 'Nicht unterstützt',
+            '1': 'Notstrom aktiv',
+            '2': 'Notstrom nicht aktiv',
+            '3': 'Notstrom nicht verfügbar',
+            '4': 'Fehler Motorschalter',
+           }
+        %}
+        {% set state = states('sensor.e3dc_emergency_power_status') %}
+        {{ statemap[state] if state in statemap else 'Unbekannt' }}
+
+    - name: "E3DC EMS Status Text"
+      unique_id: e3dc_ems_status_text
+      device_class: enum
+      state: "Unbekannt"
+      # TODO

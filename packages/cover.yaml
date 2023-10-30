@@ -1,0 +1,227 @@
+knx:
+
+  cover:
+
+    ## KG-RO1
+    #- name: "KG-RO1"
+    #  device_class: "shade"
+    #  move_long_address: "6/1/1"
+    #  stop_address: "6/1/2"
+    #  position_address: "6/1/3"
+    #  position_state_address: "6/1/4"
+    #  travelling_time_down: 22
+    #  travelling_time_up: 23
+
+    ## KG-RO2
+    #- name: "KG-RO2"
+    #  device_class: "shade"
+    #  move_long_address: "6/1/21"
+    #  stop_address: "6/1/22"
+    #  position_address: "6/1/23"
+    #  position_state_address: "6/1/24"
+    #  travelling_time_down: 21
+    #  travelling_time_up: 24
+
+    ## KG-RO3
+    #- name: "KG-RO3"
+    #  device_class: "shade"
+    #  move_long_address: "6/1/41"
+    #  stop_address: "6/1/42"
+    #  position_address: "6/1/43"
+    #  position_state_address: "6/1/44"
+    #  travelling_time_down: 21
+    #  travelling_time_up: 23
+
+    # EG-RA1
+    - name: "EG-RA1"
+      device_class: "blind"
+      move_long_address: "6/2/1"
+      move_short_address: "6/2/2"
+      position_address: "6/2/3"
+      position_state_address: "6/2/15"
+      angle_address: "6/2/4"
+      angle_state_address: "6/2/16"
+      travelling_time_down: 32
+      travelling_time_up: 33
+    # EG-RA2
+    - name: "EG-RA2"
+      device_class: "blind"
+      move_long_address: "6/2/31"
+      move_short_address: "6/2/32"
+      position_address: "6/2/33"
+      position_state_address: "6/2/45"
+      angle_address: "6/2/34"
+      angle_state_address: "6/2/46"
+      travelling_time_down: 54
+      travelling_time_up: 55
+    # EG-RA3
+    - name: "EG-RA3"
+      device_class: "blind"
+      move_long_address: "6/2/61"
+      move_short_address: "6/2/62"
+      position_address: "6/2/63"
+      position_state_address: "6/2/75"
+      angle_address: "6/2/64"
+      angle_state_address: "6/2/76"
+      travelling_time_down: 55
+      travelling_time_up: 56
+    # EG-RA4
+    - name: "EG-RA4"
+      device_class: "blind"
+      move_long_address: "6/2/91"
+      move_short_address: "6/2/92"
+      position_address: "6/2/93"
+      position_state_address: "6/2/105"
+      angle_address: "6/2/94"
+      angle_state_address: "6/2/106"
+      travelling_time_down: 55
+      travelling_time_up: 56
+    # EG-RA5
+    - name: "EG-RA5"
+      device_class: "blind"
+      move_long_address: "6/2/121"
+      move_short_address: "6/2/122"
+      position_address: "6/2/123"
+      position_state_address: "6/2/135"
+      angle_address: "6/2/124"
+      angle_state_address: "6/2/136"
+      travelling_time_down: 55
+      travelling_time_up: 56
+    # EG-RA6
+    - name: "EG-RA6"
+      device_class: "blind"
+      move_long_address: "6/2/151"
+      move_short_address: "6/2/152"
+      position_address: "6/2/153"
+      position_state_address: "6/2/165"
+      angle_address: "6/2/154"
+      angle_state_address: "6/2/166"
+      travelling_time_down: 55
+      travelling_time_up: 56
+    # EG-RO1
+    - name: "EG-RO1"
+      device_class: "shade"
+      move_long_address: "6/2/181"
+      move_short_address: "6/2/182"
+      position_address: "6/6/183"
+      position_state_address: "6/2/195"
+      travelling_time_down: 13
+      travelling_time_up: 14
+    # EG-RO2
+    - name: "EG-RO2"
+      device_class: "shade"
+      move_long_address: "6/2/211"
+      move_short_address: "6/2/212"
+      position_address: "6/2/213"
+      position_state_address: "6/2/225"
+      travelling_time_down: 13
+      travelling_time_up: 14
+
+    # OG-RO1
+    - name: "OG-RO1"
+      device_class: "shade"
+      move_long_address: "6/3/1"
+      stop_address: "6/3/2"
+      position_address: "6/3/3"
+      position_state_address: "6/3/15"
+      travelling_time_down: 22
+      travelling_time_up: 23
+    # OG-RO2
+    - name: "OG-RO2"
+      device_class: "shade"
+      move_long_address: "6/3/31"
+      stop_address: "6/3/32"
+      position_address: "6/3/33"
+      position_state_address: "6/3/45"
+      travelling_time_down: 21
+      travelling_time_up: 24
+    # OG-RO3
+    - name: "OG-RO3"
+      device_class: "shade"
+      move_long_address: "6/3/61"
+      stop_address: "6/3/62"
+      position_address: "6/3/63"
+      position_state_address: "6/3/75"
+      travelling_time_down: 21
+      travelling_time_up: 24
+    # OG-RO4
+    - name: "OG-RO4"
+      device_class: "shade"
+      move_long_address: "6/3/91"
+      stop_address: "6/3/92"
+      position_address: "6/3/93"
+      position_state_address: "6/3/105"
+      travelling_time_down: 21
+      travelling_time_up: 24
+    # OG-RO5
+    - name: "OG-RO5"
+      device_class: "shade"
+      move_long_address: "6/3/121"
+      stop_address: "6/3/122"
+      position_address: "6/3/123"
+      position_state_address: "6/3/135"
+      travelling_time_down: 21
+      travelling_time_up: 24
+    # OG-RO6
+    - name: "OG-RO6"
+      device_class: "shade"
+      move_long_address: "6/3/151"
+      stop_address: "6/3/152"
+      position_address: "6/3/153"
+      position_state_address: "6/3/165"
+      travelling_time_down: 21
+      travelling_time_up: 24
+
+  switch:
+
+      # OG-Z1 Beschattung
+    - name: "Sperre Automatische Beschattung (OG-Z2)"
+      address: "6/7/1"
+      state_address: "6/7/2"
+      device_class: switch
+    - name: "Sperre Beschattung (OG-Z2)"
+      address: "6/7/3"
+      state_address: "6/7/4"
+      device_class: switch
+    - name: "Sperre Automatische Beschattung (OG-RO3)"
+      address: "6/3/70"
+      state_address: "6/3/82"
+      device_class: switch
+    - name: "Sperre Beschattung (OG-RO3)"
+      address: "6/3/69"
+      state_address: "6/3/81"
+      device_class: switch
+    - name: "Sperre Automatische Beschattung (OG-RO4)"
+      address: "6/3/100"
+      state_address: "6/3/112"
+      device_class: switch
+    - name: "Sperre Beschattung (OG-RO4)"
+      address: "6/3/99"
+      state_address: "6/3/111"
+      device_class: switch
+
+      # OG-Z2 Beschattung
+    - name: "Sperre Automatische Beschattung (OG-Z1)"
+      address: "6/7/11"
+      state_address: "6/7/12"
+      device_class: switch
+    - name: "Sperre Beschattung (OG-Z1)"
+      address: "6/7/13"
+      state_address: "6/7/14"
+      device_class: switch
+    - name: "Sperre Automatische Beschattung (OG-RO5)"
+      address: "6/3/130"
+      state_address: "6/3/142"
+      device_class: switch
+    - name: "Sperre Beschattung (OG-RO5)"
+      address: "6/3/129"
+      state_address: "6/3/141"
+      device_class: switch
+    - name: "Sperre Automatische Beschattung (OG-RO6)"
+      address: "6/3/160"
+      state_address: "6/3/172"
+      device_class: switch
+    - name: "Sperre Beschattung (OG-RO6)"
+      address: "6/3/159"
+      state_address: "6/3/171"
+      device_class: switch

@@ -1,0 +1,80 @@
+knx:
+
+  sensor:
+
+    - name: "HV2-SV1 Betriebsstunden (insgesamt)"
+      state_address: "0/3/11"
+      type: long_delta_timesec
+      sync_state: expire 30
+
+    - name: "HV2-SV1 Betriebsstunden (seit Neustart)"
+      state_address: "0/3/12"
+      type: long_delta_timesec
+      sync_state: expire 30
+
+    - name: "HV2-SV1 Busverkehr"
+      state_address: "0/3/21"
+      type: percent
+      sync_state: every 1
+
+    - name: "HV2-SV1 Busverkehr (min)"
+      state_address: "0/3/22"
+      type: percent
+      sync_state: every 1
+
+    - name: "HV2-SV1 Busverkehr (max)"
+      state_address: "0/3/23"
+      type: percent
+      sync_state: every 1
+
+    - name: "HV2-SV1 Strom"
+      state_address: "0/3/31"
+      type: current
+      sync_state: every 1
+
+    - name: "HV2-SV1 Strom (min)"
+      state_address: "0/3/32"
+      type: current
+      sync_state: every 1
+
+    - name: "HV2-SV1 Strom (max)"
+      state_address: "0/3/33"
+      type: current
+      sync_state: every 1
+
+    - name: "HV2-SV1 Spannung"
+      state_address: "0/3/41"
+      type: voltage
+      sync_state: every 1
+
+    - name: "HV2-SV1 Spannung (min)"
+      state_address: "0/3/42"
+      type: voltage
+      sync_state: every 1
+
+    - name: "HV2-SV1 Spannung (max)"
+      state_address: "0/3/43"
+      type: voltage
+      sync_state: every 1
+
+  binary_sensor:
+
+    - name: "HV2-SV1 Temperaturüberwachung"
+      state_address: "0/3/51"
+      device_class: "problem"
+      sync_state: expire 30
+
+    - name: "HV2-SV1 Busverkehrüberwachung"
+      state_address: "0/3/52"
+      device_class: "problem"
+      sync_state: expire 30
+
+    - name: "HV2-SV1 Stromüberschreitung"
+      state_address: "0/3/53"
+      device_class: "problem"
+      sync_state: expire 30
+
+    - name: "HV2-SV1 Spannungsunterschreitung"
+      state_address: "0/3/54"
+      device_class: "problem"
+      sync_state: expire 30

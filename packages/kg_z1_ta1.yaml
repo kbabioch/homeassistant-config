@@ -1,0 +1,46 @@
+knx:
+
+  sensor:
+
+    - name: "kg_z1_ta1_temperature"
+      state_address: "3/1/5"
+      type: temperature
+      sync_state: expire 30
+
+  binary_sensor:
+
+    - name: "kg_z1_ta1_button_activity"
+      state_address: "3/1/2"
+      device_class: "presence"
+
+  switch:
+
+    - name: "kg_z1_ta1_day_night"
+      address: "3/1/1"
+
+  button:
+  
+    - name: "kg_z1_ta1_presence"
+      address: "3/1/3"
+      payload: 1
+      payload_length: 0
+
+  number:
+
+    - name: "kg_z1_ta1_display"
+      address: "3/1/4"
+      type: percent
+      min: 0
+      max: 100
+      step: 10
+      mode: slider
+
+  text:
+
+    - name: "kg_z1_ta1_statustext1"
+      address: "3/1/11"
+      type: "string"
+
+    - name: "kg_z1_ta1_statustext2"
+      address: "3/1/12"
+      type: "string"

@@ -1,0 +1,519 @@
+input_boolean:
+    # Indicates whether WP1 is in summer (cooling) or winter (heating) mode
+    # 1 = summer, 0 = winter
+    climate_summer_winter:
+      name: climate_summer_winter
+      icon: mdi:sun-snowflake
+
+knx:
+
+  binary_sensor:
+
+    - name: "HA1 Störung"
+      state_address: "7/0/14"
+      device_class: "problem"
+      sync_state: expire 30
+
+    - name: "HA2 Störung"
+      state_address: "7/0/24"
+      device_class: "problem"
+      sync_state: expire 30
+
+    - name: "HA3 Störung"
+      state_address: "7/0/34"
+      device_class: "problem"
+      sync_state: expire 30
+      
+    - name: "HA1 Heiz-/Kühlanforderung"
+      state_address: "7/0/13"
+      sync_state: expire 30
+
+    - name: "HA2 Heiz-/Kühlanforderung"
+      state_address: "7/0/23"
+      sync_state: expire 30
+
+    - name: "HA3 Heiz-/Kühlanforderung"
+      state_address: "7/0/33"
+      sync_state: expire 30
+      
+    - name: "HA1 Sommer / Winter"
+      state_address: "7/0/11"
+      sync_state: expire 30
+
+    - name: "HA2 Sommer / Winter"
+      state_address: "7/0/21"
+      sync_state: expire 30
+
+    - name: "HA3 Sommer / Winter"
+      state_address: "7/0/31"
+      sync_state: expire 30
+      
+    - name: "HA1 Status Heizen / Kühlen"
+      state_address: "7/0/12"
+      sync_state: expire 30
+
+    - name: "HA2 Status Heizen / Kühlen"
+      state_address: "7/0/22"
+      sync_state: expire 30
+
+    - name: "HA3 Status Heizen / Kühlen"
+      state_address: "7/0/32"
+      sync_state: expire 30
+
+      
+    - name: "HA1 KG-Z2 Ventilzustand"
+      state_address: "7/1/53"
+      sync_state: expire 30
+      device_class: "opening"
+      # TODO All other channels
+
+    - name: "HA1 KG-Z2 Störung"
+      state_address: "7/1/58"
+      sync_state: expire 30
+      device_class: "problem"
+      # TODO All other channels
+
+  switch:
+
+    - name: "HA1 KG-Z2 Sperre Heizen"
+      address: "7/1/48"
+      state_address: "7/1/48"
+      # TODO All other channels
+
+    - name: "HA1 KG-Z2 Sperre Kühlen"
+      address: "7/1/49"
+      state_address: "7/1/49"
+    # TODO All other channels
+
+
+  sensor:
+
+    - name: "HA1 KG-Z2 Diagnose"
+      state_address: "7/1/59"
+      type: string
+      sync_state: expire 30
+
+    - name: "HA1 KG-Z1 Diagnose"
+      state_address: "7/1/39"
+      type: string
+      sync_state: expire 30
+
+    - name: "HA1 KG-Z3 Diagnose"
+      state_address: "7/1/79"
+      type: string
+      sync_state: expire 30
+
+    - name: "HA1 KG-FL Diagnose"
+      state_address: "7/1/19"
+      type: string
+      sync_state: expire 30
+
+    - name: "HA1 KG-Z5 Diagnose"
+      state_address: "7/1/119"
+      type: string
+      sync_state: expire 30
+
+
+    - name: "HA2 EG-KEW1 Diagnose"
+      state_address: "7/2/19"
+      type: string
+      sync_state: expire 30
+
+    - name: "HA2 EG-KEW2 Diagnose"
+      state_address: "7/2/39"
+      type: string
+      sync_state: expire 30
+
+    - name: "HA2 EG-KEW3 Diagnose"
+      state_address: "7/2/59"
+      type: string
+      sync_state: expire 30
+
+    - name: "HA2 EG-KEW4 Diagnose"
+      state_address: "7/2/79"
+      type: string
+      sync_state: expire 30
+
+    - name: "HA2 EG-FL Diagnose"
+      state_address: "7/2/99"
+      type: string
+      sync_state: expire 30
+      
+    - name: "HA2 EG-WC Diagnose"
+      state_address: "7/2/119"
+      type: string
+      sync_state: expire 30
+
+
+    - name: "HA3 OG-Z1 Diagnose"
+      state_address: "7/3/19"
+      type: string
+      sync_state: expire 30
+
+    - name: "HA3 OG-Z2 Diagnose"
+      state_address: "7/3/39"
+      type: string
+      sync_state: expire 30
+
+    - name: "HA3 OG-FL Diagnose"
+      state_address: "7/3/59"
+      type: string
+      sync_state: expire 30
+
+    - name: "HA3 OG-Z3 Diagnose"
+      state_address: "7/3/79"
+      type: string
+      sync_state: expire 30
+
+    - name: "HA3 OG-BA Diagnose"
+      state_address: "7/3/99"
+      type: string
+      sync_state: expire 30
+
+    - name: "HA3 OG-Z4 Diagnose"
+      state_address: "7/3/119"
+      type: string
+      sync_state: expire 30
+
+  climate:
+
+    # KG
+    - name: "kg_fl"
+      temperature_address: "3/1/105" # TODO Change to temperature sensor in KG-FL once installed
+      temperature_step: 0.5
+      setpoint_shift_address: "7/1/5"
+      setpoint_shift_state_address: "7/1/7"
+      setpoint_shift_mode: "DPT9002"
+      target_temperature_state_address: "7/1/4"
+      setpoint_shift_min: -3
+      setpoint_shift_max: 3
+      command_value_state_address: "7/1/11"
+      controller_modes: ['Heat', 'Cool']
+      #heat_cool_address: "7/0/1"
+      heat_cool_state_address: "7/0/12"
+
+    - name: "kg_z1"
+      temperature_address: "3/1/25"
+      temperature_step: 0.5
+      setpoint_shift_address: "7/1/25"
+      setpoint_shift_state_address: "7/1/27"
+      setpoint_shift_mode: "DPT9002"
+      target_temperature_state_address: "7/1/24"
+      setpoint_shift_min: -3
+      setpoint_shift_max: 3
+      command_value_state_address: "7/1/31"
+      controller_modes: ['Heat', 'Cool']
+      #heat_cool_address: "7/0/1"
+      heat_cool_state_address: "7/0/12"
+
+    - name: "kg_z2"
+      temperature_address: "3/1/45"
+      temperature_step: 0.5
+      setpoint_shift_address: "7/1/45"
+      setpoint_shift_state_address: "7/1/47"
+      setpoint_shift_mode: "DPT9002"
+      target_temperature_state_address: "7/1/44"
+      setpoint_shift_min: -3
+      setpoint_shift_max: 3
+      command_value_state_address: "7/1/51"
+      controller_modes: ['Heat', 'Cool']
+      #heat_cool_address: "7/0/1"
+      heat_cool_state_address: "7/0/12"
+
+    - name: "kg_z3"
+      temperature_address: "3/1/65"
+      temperature_step: 0.5
+      setpoint_shift_address: "7/1/65"
+      setpoint_shift_state_address: "7/1/67"
+      setpoint_shift_mode: "DPT9002"
+      target_temperature_state_address: "7/1/64"
+      setpoint_shift_min: -3
+      setpoint_shift_max: 3
+      command_value_state_address: "7/1/71"
+      controller_modes: ['Heat', 'Cool']
+      #heat_cool_address: "7/0/1"
+      heat_cool_state_address: "7/0/12"
+
+    - name: "kg_z5"
+      temperature_address: "3/1/105"
+      temperature_step: 0.5
+      setpoint_shift_address: "7/1/105"
+      setpoint_shift_state_address: "7/1/107"
+      setpoint_shift_mode: "DPT9002"
+      target_temperature_state_address: "7/1/104"
+      setpoint_shift_min: -3
+      setpoint_shift_max: 3
+      command_value_state_address: "7/1/111"
+      controller_modes: ['Heat', 'Cool']
+      #heat_cool_address: "7/0/1"
+      heat_cool_state_address: "7/0/12"
+
+
+    # EG
+    - name: "eg_kew1"
+      temperature_address: "3/2/5"
+      temperature_step: 0.5
+      setpoint_shift_address: "7/2/5"
+      setpoint_shift_state_address: "7/2/7"
+      setpoint_shift_mode: "DPT9002"
+      target_temperature_state_address: "7/2/4"
+      setpoint_shift_min: -3
+      setpoint_shift_max: 3
+      command_value_state_address: "7/2/11"
+      controller_modes: ['Heat', 'Cool']
+      #heat_cool_address: "7/0/1"
+      heat_cool_state_address: "7/0/22"
+
+    - name: "eg_kew2"
+      temperature_address: "3/2/5"
+      temperature_step: 0.5
+      setpoint_shift_address: "7/2/25"
+      setpoint_shift_state_address: "7/2/27"
+      setpoint_shift_mode: "DPT9002"
+      target_temperature_state_address: "7/2/24"
+      setpoint_shift_min: -3
+      setpoint_shift_max: 3
+      command_value_state_address: "7/2/31"
+      controller_modes: ['Heat', 'Cool']
+      #heat_cool_address: "7/0/1"
+      heat_cool_state_address: "7/0/22"
+
+    - name: "eg_kew3"
+      temperature_address: "3/2/5"
+      temperature_step: 0.5
+      setpoint_shift_address: "7/2/45"
+      setpoint_shift_state_address: "7/2/47"
+      setpoint_shift_mode: "DPT9002"
+      target_temperature_state_address: "7/2/44"
+      setpoint_shift_min: -3
+      setpoint_shift_max: 3
+      command_value_state_address: "7/2/51"
+      controller_modes: ['Heat', 'Cool']
+      #heat_cool_address: "7/0/1"
+      heat_cool_state_address: "7/0/22"
+
+    - name: "eg_kew4"
+      temperature_address: "3/2/5"
+      temperature_step: 0.5
+      setpoint_shift_address: "7/2/65"
+      setpoint_shift_state_address: "7/2/67"
+      setpoint_shift_mode: "DPT9002"
+      target_temperature_state_address: "7/2/64"
+      setpoint_shift_min: -3
+      setpoint_shift_max: 3
+      command_value_state_address: "7/2/71"
+      controller_modes: ['Heat', 'Cool']
+      #heat_cool_address: "7/0/1"
+      heat_cool_state_address: "7/0/22"
+
+    - name: "eg_fl"
+      temperature_address: "3/2/25"
+      temperature_step: 0.5
+      setpoint_shift_address: "7/2/85"
+      setpoint_shift_state_address: "7/2/87"
+      setpoint_shift_mode: "DPT9002"
+      target_temperature_state_address: "7/2/84"
+      setpoint_shift_min: -3
+      setpoint_shift_max: 3
+      command_value_state_address: "7/2/91"
+      controller_modes: ['Heat', 'Cool']
+      #heat_cool_address: "7/0/1"
+      heat_cool_state_address: "7/0/22"
+
+    - name: "eg_wc"
+      temperature_address: "3/2/45"
+      temperature_step: 0.5
+      setpoint_shift_address: "7/2/105"
+      setpoint_shift_state_address: "7/2/107"
+      setpoint_shift_mode: "DPT9002"
+      target_temperature_state_address: "7/2/104"
+      setpoint_shift_min: -3
+      setpoint_shift_max: 3
+      command_value_state_address: "7/2/111"
+      controller_modes: ['Heat', 'Cool']
+      #heat_cool_address: "7/0/1"
+      heat_cool_state_address: "7/0/22"
+
+
+    # OG
+    - name: "og_z1"
+      temperature_address: "4/3/7"
+      temperature_step: 0.5
+      setpoint_shift_address: "7/3/5"
+      setpoint_shift_state_address: "7/3/7"
+      setpoint_shift_mode: "DPT9002"
+      target_temperature_state_address: "7/3/4"
+      setpoint_shift_min: -3
+      setpoint_shift_max: 3
+      command_value_state_address: "7/3/11"
+      controller_modes: ['Heat', 'Cool']
+      #heat_cool_address: "7/0/1"
+      heat_cool_state_address: "7/0/32"
+
+    - name: "og_z2"
+      temperature_address: "4/3/47"
+      temperature_step: 0.5
+      setpoint_shift_address: "7/3/25"
+      setpoint_shift_state_address: "7/3/27"
+      setpoint_shift_mode: "DPT9002"
+      target_temperature_state_address: "7/3/24"
+      setpoint_shift_min: -3
+      setpoint_shift_max: 3
+      command_value_state_address: "7/3/31"
+      controller_modes: ['Heat', 'Cool']
+      #heat_cool_address: "7/0/1"
+      heat_cool_state_address: "7/0/32"
+
+    - name: "og_fl"
+      temperature_address: "4/3/86"
+      temperature_step: 0.5
+      setpoint_shift_address: "7/3/45"
+      setpoint_shift_state_address: "7/3/47"
+      setpoint_shift_mode: "DPT9002"
+      target_temperature_state_address: "7/3/44"
+      setpoint_shift_min: -3
+      setpoint_shift_max: 3
+      command_value_state_address: "7/3/51"
+      controller_modes: ['Heat', 'Cool']
+      #heat_cool_address: "7/0/1"
+      heat_cool_state_address: "7/0/32"
+
+    - name: "og_z3"
+      temperature_address: "3/3/45"
+      temperature_step: 0.5
+      setpoint_shift_address: "7/3/65"
+      setpoint_shift_state_address: "7/3/67"
+      setpoint_shift_mode: "DPT9002"
+      target_temperature_state_address: "7/3/64"
+      setpoint_shift_min: -3
+      setpoint_shift_max: 3
+      command_value_state_address: "7/3/71"
+      controller_modes: ['Heat', 'Cool']
+      #heat_cool_address: "7/0/1"
+      heat_cool_state_address: "7/0/32"
+
+    - name: "og_ba"
+      temperature_address: "3/3/85"
+      temperature_step: 0.5
+      setpoint_shift_address: "7/3/85"
+      setpoint_shift_state_address: "7/3/87"
+      setpoint_shift_mode: "DPT9002"
+      target_temperature_state_address: "7/3/84"
+      setpoint_shift_min: -3
+      setpoint_shift_max: 3
+      command_value_state_address: "7/3/91"
+      controller_modes: ['Heat', 'Cool']
+      #heat_cool_address: "7/0/1"
+      heat_cool_state_address: "7/0/32"
+
+    - name: "og_z4"
+      temperature_address: "3/3/45"
+      temperature_step: 0.5
+      setpoint_shift_address: "7/3/105"
+      setpoint_shift_state_address: "7/3/107"
+      setpoint_shift_mode: "DPT9002"
+      target_temperature_state_address: "7/3/104"
+      setpoint_shift_min: -3
+      setpoint_shift_max: 3
+      command_value_state_address: "7/3/111"
+      controller_modes: ['Heat', 'Cool']
+      #heat_cool_address: "7/0/1"
+      heat_cool_state_address: "7/0/32"
+
+  expose:
+
+    - type: binary
+      entity_id: input_boolean.climate_summer_winter
+      address: "7/0/1"
+      default: 0
+      cooldown: 30
+      respond_to_read: true
+
+template:
+
+  sensor:
+
+      - name: "climate_kg_fl_command_value"
+        unique_id: climate_kg_fl_command_value
+        state_class: measurement
+        state: "{{ state_attr('climate.kg_fl', 'command_value') }}"
+    
+      - name: "climate_kg_z1_command_value"
+        unique_id: climate_kg_z1_command_value"
+        state_class: measurement
+        state: "{{ state_attr('climate.kg_z1', 'command_value') }}"
+    
+      - name: "climate_kg_z2_command_value"
+        unique_id: climate_kg_z2_command_value
+        state_class: measurement
+        state: "{{ state_attr('climate.kg_z2', 'command_value') }}"
+    
+      - name: "climate_kg_z3_command_value"
+        unique_id: climate_kg_z3_command_value
+        state_class: measurement
+        state: "{{ state_attr('climate.kg_z3', 'command_value') }}"
+    
+      - name: "climate_kg_z5_command_value"
+        unique_id: climate_kg_z5_command_value
+        state_class: measurement
+        state: "{{ state_attr('climate.kg_z5', 'command_value') }}"
+    
+      - name: "climate_eg_fl_command_value"
+        unique_id: climate_eg_fl_command_value
+        state_class: measurement
+        state: "{{ state_attr('climate.eg_fl', 'command_value') }}"
+    
+      - name: "climate_eg_wc_command_value"
+        unique_id: climate_eg_wc_command_value
+        state_class: measurement
+        state: "{{ state_attr('climate.eg_wc', 'command_value') }}"
+    
+      - name: "climate_eg_kew1_command_value"
+        unique_id: climate_eg_kew1_command_value
+        state_class: measurement
+        state: "{{ state_attr('climate.eg_kew1', 'command_value') }}"
+    
+      - name: "climate_eg_kew2_command_value"
+        unique_id: climate_eg_kew2_command_value
+        state_class: measurement
+        state: "{{ state_attr('climate.eg_kew2', 'command_value') }}"
+    
+      - name: "climate_eg_kew3_command_value"
+        unique_id: climate_eg_kew3_command_value
+        state_class: measurement
+        state: "{{ state_attr('climate.eg_kew3', 'command_value') }}"
+    
+      - name: "climate_eg_kew4_command_value"
+        unique_id: climate_eg_kew4_command_value
+        state_class: measurement
+        state: "{{ state_attr('climate.eg_kew4', 'command_value') }}"
+    
+      - name: "climate_og_fl_command_value"
+        unique_id: climate_og_fl_command_value
+        state_class: measurement
+        state: "{{ state_attr('climate.og_fl', 'command_value') }}"
+    
+      - name: "climate_og_z1_command_value"
+        unique_id: climate_og_z1_command_value
+        state_class: measurement
+        state: "{{ state_attr('climate.og_z1', 'command_value') }}"
+    
+      - name: "climate_og_z2_command_value"
+        unique_id: climate_og_z2_command_value
+        state_class: measurement
+        state: "{{ state_attr('climate.og_z2', 'command_value') }}"
+    
+      - name: "climate_og_z3_command_value"
+        unique_id: climate_og_z3_command_value
+        state_class: measurement
+        state: "{{ state_attr('climate.og_z3', 'command_value') }}"
+    
+      - name: "climate_og_z4_command_value"
+        unique_id: climate_og_z4_command_value
+        state_class: measurement
+        state: "{{ state_attr('climate.og_z4', 'command_value') }}"
+    
+      - name: "climate_og_ba_command_value"
+        unique_id: climate_og_ba_command_value
+        state_class: measurement
+        state: "{{ state_attr('climate.og_ba', 'command_value') }}"

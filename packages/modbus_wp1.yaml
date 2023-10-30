@@ -1,0 +1,884 @@
+modbus:
+
+  - name: "lwav"
+    type: tcp
+    host: 192.168.1.5
+    port: 502
+
+    binary_sensors:
+
+      # DISCRETE INPUTS
+
+      - name: "lwav_compressor_running"
+        unique_id: lwav_compressor_running
+        slave: 1
+        input_type: discrete_input
+        address: 3 # VD1
+        device_class: running
+        #unique_id:
+
+      - name: "lwav_additional_heating_element_running" # additional heating element
+        unique_id: lwav_additional_heating_element_running
+        slave: 1
+        input_type: discrete_input
+        address: 5 # ZWE1
+        device_class: running
+        #unique_id:
+
+    sensors:
+
+      # INPUT REGISTERS
+
+      - name: "lwav_temperature_avg" # Mitteltemperatur: Auflösung 10, Einheit °C
+        unique_id: lwav_temperature_avg
+        slave: 1
+        input_type: input
+        address: 0
+        data_type: int16
+        scale: 0.1
+        precision: 1
+        device_class: temperature
+        state_class: measurement
+        unit_of_measurement: °C
+
+      - name: "lwav_temperature_forward_flow" # Vorlauf: Auflösung 10, Einheit °C
+        unique_id: lwav_temperature_forward_flow
+        slave: 1
+        input_type: input
+        address: 1
+        data_type: int16
+        scale: 0.1
+        precision: 1
+        device_class: temperature
+        state_class: measurement
+        unit_of_measurement: °C
+
+      - name: "lwav_temperature_return_flow" # Rücklauf: Auflösung 10, Einheit °C
+        unique_id: lwav_temperature_return_flow
+        slave: 1
+        input_type: input
+        address: 2
+        data_type: int16
+        scale: 0.1
+        precision: 1
+        device_class: temperature
+        state_class: measurement
+        unit_of_measurement: °C
+
+      - name: "lwav_temperature_hot_water" # Warmwassertemperatur: Auflösung 10, Einheit °C
+        unique_id: lwav_temperature_hot_water
+        slave: 1
+        input_type: input
+        address: 4
+        data_type: int16
+        scale: 0.1
+        precision: 1
+        device_class: temperature
+        state_class: measurement
+        unit_of_measurement: °C
+
+      - name: "lwav_temperature_mc1_forward_flow" # Mischkreis 1 Vorlauf: Auflösung 10, Einheit °C
+        unique_id: lwav_temperature_mc1_forward_flow
+        slave: 1
+        input_type: input
+        address: 5
+        data_type: int16
+        scale: 0.1
+        precision: 1
+        device_class: temperature
+        state_class: measurement
+        unit_of_measurement: °C
+
+      - name: "lwav_temperature_hot_gas" # Temperatur Heißgas: Auflösung 10, Einheit °C
+        unique_id: lwav_temperature_hot_gas
+        slave: 1
+        input_type: input
+        address: 8
+        data_type: int16
+        scale: 0.1
+        precision: 1
+        device_class: temperature
+        state_class: measurement
+        unit_of_measurement: °C
+
+      - name: "lwav_temperature_heatsource_ingress" # Temperatur Heißgas: Auflösung 10, Einheit °C
+        unique_id: lwav_temperature_heatsource_ingress
+        slave: 1
+        input_type: input
+        address: 9
+        data_type: int16
+        scale: 0.1
+        precision: 1
+        device_class: temperature
+        state_class: measurement
+        unit_of_measurement: °C
+
+      # TODO REMOVE
+      # Always reports back -50,0 °C, probably not measured, web interface does not show this at all
+      #- name: "lwav_temperature_heatsource_egress" # Temperatur Wärmequellenaustritt: Auflösung 10, Einheit °C
+      #  unique_id: lwav_temperature_heatsource_egress
+      #  slave: 1
+      #  input_type: input
+      #  address: 10
+      #  data_type: int16
+      #  scale: 0.1
+      #  precision: 1
+      #  device_class: temperature
+      #  state_class: measurement
+      #  unit_of_measurement: °C
+
+      # TODO REMOVE
+      # Always reports back 0,0 °C, probably not measured, web interface does not show this at all
+      #- name: "lwav_remote_control_unit1_temperature" # Temperatur Raumfernversteller 1: Auflösung 10, Einheit °C
+      #  slave: 1
+      #  input_type: input
+      #  address: 11
+      #  data_type: int16
+      #  scale: 0.1
+      #  precision: 1
+      #  device_class: temperature
+      #  state_class: measurement
+      #  unit_of_measurement: °C
+
+      # TODO REMOVE
+      # Always reports back 0,0 °C, probably not measured, web interface does not show this at all
+      #- name: "lwav_remote_control_unit2_temperature" # Temperatur Raumfernversteller 2: Auflösung 10, Einheit °C
+      #  slave: 1
+      #  input_type: input
+      #  address: 12
+      #  data_type: int16
+      #  scale: 0.1
+      #  precision: 1
+      #  device_class: temperature
+      #  state_class: measurement
+      #  unit_of_measurement: °C
+
+      # TODO REMOVE
+      # Always reports back 0,0 °C, probably not measured, web interface does not show this at all
+      #- name: "lwav_remote_control_unit3_temperature" # Temperatur Raumfernversteller 3: Auflösung 10, Einheit °C
+      #  slave: 1
+      #  input_type: input
+      #  address: 13
+      #  data_type: int16
+      #  scale: 0.1
+      #  precision: 1
+      #  device_class: temperature
+      #  state_class: measurement
+      #  unit_of_measurement: °C
+
+      # TODO REMOVE
+      # Always reports back 0,0 °C, probably not measured, web interface does not show this at all
+      #- name: "lwav_temperature_solar_collector" # Temperatur Solarkollektor: Auflösung 10, Einheit °C
+      #  slave: 1
+      #  input_type: input
+      #  address: 14
+      #  data_type: int16
+      #  scale: 0.1
+      #  precision: 1
+      #  device_class: temperature
+      #  state_class: measurement
+      #  unit_of_measurement: °C
+
+      # TODO REMOVE
+      # Always reports back 0,0 °C, probably not measured, web interface does not show this at all
+      #- name: "lwav_temperature_solar_boiler" # Temperatur Solarspeicher: Auflösung 10, Einheit °C
+      #  slave: 1
+      #  input_type: input
+      #  address: 15
+      #  data_type: int16
+      #  scale: 0.1
+      #  precision: 1
+      #  device_class: temperature
+      #  state_class: measurement
+      #  unit_of_measurement: °C
+
+      # TODO REMOVE
+      # Always reports back 0,0 °C, probably not measured, web interface does not show this at all
+      #- name: "lwav_temperature_external_source" # Temperatur externe Energiequelle: Auflösung 10, Einheit °C
+      #  slave: 1
+      #  input_type: input
+      #  address: 16
+      #  data_type: int16
+      #  scale: 0.1
+      #  precision: 1
+      #  device_class: temperature
+      #  state_class: measurement
+      #  unit_of_measurement: °C
+
+      # TODO REMOVE
+      # Always reports back 0,0 °C, probably not measured, web interface does not show this at all
+      #- name: "lwav_temperature_air_ingress" # Zulufttempreatur: Auflösung 10, Einheit °C
+      #  slave: 1
+      #  input_type: input
+      #  address: 17
+      #  data_type: int16
+      #  scale: 0.1
+      #  precision: 1
+      #  device_class: temperature
+      #  state_class: measurement
+      #  unit_of_measurement: °C
+
+      # TODO REMOVE
+      # Always reports back 0,0 °C, probably not measured, web interface does not show this at all
+      #- name: "lwav_temperature_air_egress" # Ablufttemperatur: Auflösung 10, Einheit °C
+      #  slave: 1
+      #  input_type: input
+      #  address: 18
+      #  data_type: int16
+      #  scale: 0.1
+      #  precision: 1
+      #  device_class: temperature
+      #  state_class: measurement
+      #  unit_of_measurement: °C
+
+      - name: "lwav_temperature_compressor_ingress" # Ansaugtemperatur Verdichter: Auflösung 10, Einheit °C
+        unique_id: lwav_temperature_compressor_ingress
+        slave: 1
+        input_type: input
+        address: 19
+        data_type: int16
+        scale: 0.1
+        precision: 1
+        device_class: temperature
+        state_class: measurement
+        unit_of_measurement: °C
+
+      # TODO REMOVE since it doesn't return useful values
+      #- name: "lwav_temperature_vaporizer_ingress" # Ansaugtemperatur Verdichter: Auflösung 10, Einheit °C
+      #  unique_id: lwav_temperature_vaporizer_ingress
+      #  slave: 1
+      #  input_type: input
+      #  address: 20
+      #  data_type: int16
+      #  scale: 0.1
+      #  precision: 1
+      #  device_class: temperature
+      #  state_class: measurement
+      #  unit_of_measurement: °C
+
+      - name: "lwav_temperature_compressor_heating_element" # Temperatur Verdichterheizung: Auflösung 10, Einheit °C
+        unique_id: lwav_temperature_compressor_heating_element
+        slave: 1
+        input_type: input
+        address: 21
+        data_type: int16
+        scale: 0.1
+        precision: 1
+        device_class: temperature
+        state_class: measurement
+        unit_of_measurement: °C
+
+      - name: "lwav_temperature_overheating" # Überhitzung: Auflösung 10, Einheit K
+        unique_id: lwav_temperature_overheating
+        slave: 1
+        input_type: input
+        address: 22
+        data_type: int16
+        scale: 0.1
+        precision: 1
+        device_class: temperature
+        state_class: measurement
+        unit_of_measurement: K
+
+      - name: "lwav_temperature_overheating_target" # Überhitzung Soll: Auflösung 10, Einheit K
+        unique_id: lwav_temperature_overheating_target
+        slave: 1
+        input_type: input
+        address: 23
+        data_type: int16
+        scale: 0.1
+        precision: 1
+        device_class: temperature
+        state_class: measurement
+        unit_of_measurement: K
+
+      # TODO REMOVE
+      # Always reports back 0,0 °C, probably not measured, web interface does not show this at all
+      #- name: "lwav_temperature_remote_control_unit" # RBE Raumtemperatur Ist: Auflösung 10, Einheit °C
+      #  slave: 1
+      #  input_type: input
+      #  address: 24
+      #  data_type: int16
+      #  scale: 0.1
+      #  precision: 1
+      #  device_class: temperature
+      #  state_class: measurement
+      #  unit_of_measurement: °C
+
+      # Always reports back 0,0 °C, probably not measured, web interface does not show this at all
+      #- name: "lwav_temperature_remote_control_unit_target" # RBE Raumtemperatur Soll: Auflösung 10, Einheit °C
+      #  slave: 1
+      #  input_type: input
+      #  address: 25
+      #  data_type: int16
+      #  scale: 0.1
+      #  precision: 1
+      #  device_class: temperature
+      #  state_class: measurement
+      #  unit_of_measurement: °C
+
+      - name: "lwav_pressure_high" # Hochdruck: Auflösung 100, Einheit bar
+        unique_id: lwav_pressure_high
+        slave: 1
+        input_type: input
+        address: 26
+        data_type: int16
+        scale: 0.01
+        precision: 2
+        device_class: pressure
+        state_class: measurement
+        unit_of_measurement: bar
+
+      - name: "lwav_pressure_low" # Niederdruck: Auflösung 100, Einheit bar
+        unique_id: lwav_pressure_low
+        slave: 1
+        input_type: input
+        address: 27
+        data_type: int16
+        scale: 0.01
+        precision: 2
+        device_class: pressure
+        state_class: measurement
+        unit_of_measurement: bar
+
+      - name: "lwav_operating_hours_compressor1" # Betriebsstunden VD 1: Auflösung 1, Einheit Stunden (h)
+        unique_id: lwav_operating_hours_compressor1
+        slave: 1
+        input_type: input
+        address: 28
+        data_type: uint16
+        scale: 1
+        precision: 1
+        device_class: duration
+        state_class: total_increasing
+        unit_of_measurement: h
+
+      # TODO REMOVE
+      # Not installed, so not relevant? Reports back 0
+      #- name: "lwav_operating_hours_compressor2" # Betriebsstunden VD 2: Auflösung 1, Einheit Stunden (h)
+      #  slave: 1
+      #  input_type: input
+      #  address: 29
+      #  data_type: uint16
+      #  scale: 1
+      #  precision: 1
+      #  device_class: pressure
+      #  state_class: total_increasing
+      #  unit_of_measurement: h
+
+      - name: "lwav_operating_hours_additional_heating_element" # Betriebsstunden ZWE 1: Auflösung 1, Einheit Stunden (h)
+        unique_id: lwav_operating_hours_additional_heating_element
+        slave: 1
+        input_type: input
+        address: 30
+        data_type: uint16
+        scale: 1
+        precision: 1
+        device_class: duration
+        state_class: total_increasing
+        unit_of_measurement: h
+
+      # TODO CHECK
+      # Reports back 9?
+      - name: "lwav_operating_hours_additional_heating_element2" # Betriebsstunden ZWE 2: Auflösung 1, Einheit Stunden (h)
+        unique_id: lwav_operating_hours_additional_heating_element2
+        slave: 1
+        input_type: input
+        address: 31
+        data_type: uint16
+        scale: 1
+        precision: 1
+        device_class: duration
+        state_class: total_increasing
+        unit_of_measurement: h
+
+      # TODO REMOVE
+      # Not installed, so not relevant? Reports back 0
+      #- name: "lwav_operating_hours_additional_heating_element3" # Betriebsstunden ZWE 3: Auflösung 1, Einheit Stunden (h)
+      #  slave: 1
+      #  input_type: input
+      #  address: 32
+      #  data_type: uint16
+      #  scale: 1
+      #  precision: 1
+      #  device_class: duration
+      #  state_class: total_increasing
+      #  unit_of_measurement: h
+
+      - name: "lwav_operating_hours_heat_pump" # Betriebsstunden Wärmepumpe: Auflösung 1, Einheit Stunden (h)
+        unique_id: lwav_operating_hours_heat_pump
+        slave: 1
+        input_type: input
+        address: 33
+        data_type: uint16
+        scale: 1
+        precision: 1
+        device_class: duration
+        state_class: total_increasing
+        unit_of_measurement: h
+
+      - name: "lwav_operating_hours_heating" # Betriebsstunden Heizung: Auflösung 1, Einheit Stunden (h)
+        unique_id: lwav_operating_hours_heating
+        slave: 1
+        input_type: input
+        address: 34
+        data_type: uint16
+        scale: 1
+        precision: 1
+        device_class: duration
+        state_class: total_increasing
+        unit_of_measurement: h
+
+      - name: "lwav_operating_hours_hot_water" # Betriebsstunden Warmwasser: Auflösung 1, Einheit Stunden (h)
+        unique_id: lwav_operating_hours_hot_water
+        slave: 1
+        input_type: input
+        address: 35
+        data_type: uint16
+        scale: 1
+        precision: 1
+        device_class: duration
+        state_class: total_increasing
+        unit_of_measurement: h
+
+      # TODO REMOVE
+      # Not installed / used, so not relevant? Reports back 0
+      #- name: "lwav_operating_hours_pool_water" # Betriebsstunden Schwimmbad: Auflösung 1, Einheit Stunden (h)
+      #  slave: 1
+      #  input_type: input
+      #  address: 36
+      #  data_type: uint16
+      #  scale: 1
+      #  precision: 1
+      #  device_class: duration
+      #  state_class: total_increasing
+      #  unit_of_measurement: h
+
+      - name: "lwav_operating_status" # Anlagenstatus
+        unique_id: lwav_operating_status
+        slave: 1
+        input_type: input
+        address: 37
+        data_type: uint16
+
+      - name: "lwav_heat_quantity_heating" # Wärmemenge Heizung
+        unique_id: lwav_heat_quantity_heating
+        slave: 1
+        input_type: input
+        address: 38
+        data_type: uint32
+        scale: 0.1
+        precision: 1
+        device_class: energy
+        state_class: total_increasing
+        unit_of_measurement: kWh
+
+      - name: "lwav_heat_quantity_hot_water" # Wärmemenge Warmwasser
+        unique_id: lwav_heat_quantity_hot_water
+        slave: 1
+        input_type: input
+        address: 40
+        data_type: uint32
+        scale: 0.1
+        precision: 1
+        device_class: energy
+        state_class: total_increasing
+        unit_of_measurement: kWh
+
+      - name: "lwav_heat_quantity_total" # Wärmemenge gesamt
+        unique_id: lwav_heat_quantity_total
+        slave: 1
+        input_type: input
+        address: 44
+        data_type: uint32
+        scale: 0.1
+        precision: 1
+        device_class: energy
+        state_class: total_increasing
+        unit_of_measurement: kWh
+
+      - name: "lwav_error_memory" # Fehlerspeicher
+        unique_id: lwav_error_memory
+        slave: 1
+        input_type: input
+        address: 46
+        data_type: uint16
+
+      - name: "lwav_power_thermal" # Leistung Ist (thermisch)
+        unique_id: lwav_power_thermal
+        slave: 1
+        input_type: input
+        address: 47
+        data_type: uint16
+        scale: 0.01
+        precision: 2
+        device_class: power
+        state_class: measurement
+        unit_of_measurement: kW
+
+      - name: "lwav_heat_quantity_cooling" # Wärmemenge Kühlung
+        unique_id: lwav_heat_quantity_cooling
+        slave: 1
+        input_type: input
+        address: 48
+        data_type: uint32
+        scale: 0.1
+        precision: 1
+        device_class: energy
+        state_class: total_increasing
+        unit_of_measurement: kWh
+
+      - name: "lwav_energy_input_heating" # Eingesetzte Energie Heizung
+        unique_id: lwav_energy_input_heating
+        slave: 1
+        input_type: input
+        address: 50
+        data_type: uint32
+        scale: 0.1
+        precision: 1
+        device_class: energy
+        state_class: total_increasing
+        unit_of_measurement: kWh
+
+      - name: "lwav_energy_input_hot_water" # Eingesetzte Energie Trinkwarmwasser
+        unique_id: lwav_energy_input_hot_water
+        slave: 1
+        input_type: input
+        address: 52
+        data_type: uint32
+        scale: 0.1
+        precision: 1
+        device_class: energy
+        state_class: total_increasing
+        unit_of_measurement: kWh
+
+      - name: "lwav_energy_input_cooling" # Eingesetzte Energie Kühlung
+        unique_id: lwav_energy_input_cooling
+        slave: 1
+        input_type: input
+        address: 54
+        data_type: uint32
+        scale: 0.1
+        precision: 1
+        device_class: energy
+        state_class: total_increasing
+        unit_of_measurement: kWh
+
+      # TODO REMOVE
+      #- name: "lwav_energy_input_pool_water" # Eingesetzte Energie Schwimmbad
+      #  slave: 1
+      #  input_type: input
+      #  address: 56
+      #  data_type: uint32
+      #  scale: 0.1
+      #  precision: 1
+      #  device_class: energy
+      #  state_class: total_increasing
+      #  unit_of_measurement: kWh
+
+      - name: "lwav_energy_input_total" # Eingesetzte Energie gesamt
+        unique_id: lwav_energy_input_total
+        slave: 1
+        input_type: input
+        address: 58
+        data_type: uint32
+        scale: 0.1
+        precision: 1
+        device_class: energy
+        state_class: total_increasing
+        unit_of_measurement: kWh
+
+      # HOLDING REGISTERS
+
+      - name: "lwav_temperature_external" # Außentemperatur: Auflösung 10, Einheit: °C, Min: -20, Max: 80
+        unique_id: lwav_temperature_external
+        slave: 1
+        input_type: holding
+        address: 0
+        data_type: int16
+        scale: 0.1
+        precision: 1
+        device_class: temperature
+        state_class: measurement
+        unit_of_measurement: °C
+
+      - name: "lwav_lock_heatpump" # Sperre / Freigabe Wärmepumpe
+        unique_id: lwav_lock_heatpump
+        slave: 1
+        input_type: holding
+        address: 6
+        data_type: uint16
+
+      - name: "lwav_operating_mode_heating" # Betriebsart Heizung
+        unique_id: lwav_operating_mode_heating
+        slave: 1
+        input_type: holding
+        address: 7
+        data_type: uint16
+
+      - name: "lwav_operating_mode_hot_water" # Betriebsart Trinkwarmwasser
+        unique_id: lwav_operating_mode_hot_water
+        slave: 1
+        input_type: holding
+        address: 8
+        data_type: uint16
+
+      - name: "lwav_operating_mode_cooling" # Betriebsart Kühlung
+        unique_id: lwav_operating_mode_cooling
+        slave: 1
+        input_type: holding
+        address: 11
+        data_type: uint16
+
+      - name: "lwav_smart_grid" # Smart Grid
+        unique_id: lwav_smart_grid
+        slave: 1
+        input_type: holding
+        address: 14
+        data_type: uint16
+
+      - name: "lwav_temperature_shift" # Temperatur + –
+        unique_id: lwav_temperature_shift
+        slave: 1
+        address: 23
+        input_type: holding
+        data_type: int16
+        scale: 0.1
+        precision: 1
+        device_class: temperature
+        state_class: measurement
+        unit_of_measurement: K
+
+    switches:
+
+      - name: "lwav_error_reset" # Fehlerreset
+        unique_id: lwav_error_reset
+        slave: 1
+        address: 0
+        write_type: coil
+
+      - name: "lwav_circulating_pump_heating" # HUP
+        unique_id: lwav_circulating_pump_heating
+        slave: 1
+        address: 2
+        write_type: coil
+        verify:
+
+      # TODO Remove, since this cannot be controlled anyway and seems to not be
+      # the ventilator from the compressor
+      #- name: "lwav_fan" # VEN
+      #  unique_id: lwav_fan
+      #  slave: 1
+      #  address: 3
+      #  write_type: coil
+      #  verify:
+
+      - name: "lwav_circulating_pump_hot_water" # ZIP
+        unique_id: lwav_circulating_pump_hot_water
+        slave: 1
+        address: 7
+        write_type: coil
+        verify:
+
+    climates:
+
+      - name: "lwav_temperature_target_return_flow" # Rücklauf Soll: Auflösung 10, Einheit: °C, Min: -20, Max: 80
+        unique_id: lwav_temperature_target_return_flow
+        address: 1
+        input_type: holding
+        data_type: int16
+        min_temp: 15
+        max_temp: 50
+        offset: 0
+        precision: 1
+        scale: 0.1
+        target_temp_register: 1
+        temp_step: 0.1
+        temperature_unit: C
+
+      - name: "lwav_temperature_target_mc1_forward_flow" # Vorlauf Soll MK1: Auflösung 10, Einheit: °C, Min: -20, Max: 80
+        unique_id: lwav_temperature_target_mc1_forward_flow
+        address: 2
+        data_type: int16
+        min_temp: 15
+        max_temp: 55
+        offset: 0
+        precision: 1
+        scale: 0.1
+        target_temp_register: 2
+        temp_step: 0.1
+        temperature_unit: C
+
+      - name: "lwav_temperature_target_hot_water" # Warmwasser Soll: Auflösung 10, Einheit: °C, Min: -20, Max: 80
+        unique_id: lwav_temperature_target_hot_water
+        address: 5
+        input_type: holding
+        data_type: int16
+        min_temp: 15
+        max_temp: 55
+        offset: 0
+        precision: 1
+        scale: 0.1
+        target_temp_register: 5
+        temp_step: 0.5
+        temperature_unit: C
+
+      - name: "lwav_heating_curve_endpoint" # Heizkurve Heizung Endpunkt
+        unique_id: lwav_heating_curve_endpoint
+        address: 15
+        input_type: holding
+        data_type: int16
+        min_temp: 20
+        max_temp: 70
+        offset: 0
+        precision: 1
+        scale: 0.1
+        target_temp_register: 15
+        temp_step: 0.5
+        temperature_unit: C
+
+      - name: "lwav_heating_curve_shift" # Heizkurve Heizung Parallelverschiebung
+        unique_id: lwav_heating_curve_shift
+        address: 16
+        input_type: holding
+        data_type: int16
+        min_temp: 5
+        max_temp: 35
+        offset: 0
+        precision: 1
+        scale: 0.1
+        target_temp_register: 16
+        temp_step: 0.5
+        temperature_unit: C
+
+      - name: "lwav_heating_curve_endpoint_mc1" # Heizkurve Heizung Endpunkt
+        unique_id: lwav_heating_curve_endpoint_mc1"
+        address: 17
+        input_type: holding
+        data_type: int16
+        min_temp: 20
+        max_temp: 70
+        offset: 0
+        precision: 1
+        scale: 0.1
+        target_temp_register: 17
+        temp_step: 0.5
+        temperature_unit: C
+
+      - name: "lwav_heating_curve_shift_mc1" # Heizkurve Heizung Parallelverschiebung
+        unique_id: lwav_heating_curve_shift_mc1
+        address: 18
+        input_type: holding
+        data_type: int16
+        min_temp: 5
+        max_temp: 35
+        offset: 0
+        precision: 1
+        scale: 0.1
+        target_temp_register: 18
+        temp_step: 0.5
+        temperature_unit: C
+
+template:
+
+  sensor:
+
+    - name: "lwav_operating_status_text"
+      unique_id: lwav_operating_status_text
+      device_class: enum
+      state: >
+        {%
+          set statemap = {
+            '0': 'Heizbetrieb',
+            '1': 'Trinkwarmwasser',
+            '2': 'Schwimmbad',
+            '3': 'EVU Sperre',
+            '4': 'Abtauen',
+            '5': 'Aus',
+            '6': 'Externe Energiequelle',
+            '7': 'Kühlung',
+          }
+        %}
+        {% set state = states('sensor.lwav_operating_status') %}
+        {{ statemap[state] if state in statemap else 'Unbekannt' }}
+
+    - name: "lwav_lock_heatpump_text"
+      unique_id: lwav_lock_heatpump_text
+      device_class: enum
+      state: >
+        {%
+          set statemap = {
+            '0': 'Sperre Wärmepumpe',
+            '1': 'Freigabe 1 Verdichter',
+            '2': 'Freigabe 2 Verdichter',
+          }
+        %}
+        {% set state = states('sensor.lwav_lock_heatpump') %}
+        {{ statemap[state] if state in statemap else 'Unbekannt' }}
+
+    - name: "lwav_operating_mode_heating_text"
+      unique_id: lwav_operating_mode_heating_text
+      device_class: enum
+      state: >
+        {%
+          set statemap = {
+            '0': 'Automatik',
+            '1': 'Zusätzlicher Wärmeerzeuger',
+            '2': 'Party',
+            '3': 'Ferien',
+            '4': 'Aus',
+          }
+        %}
+        {% set state = states('sensor.lwav_operating_mode_heating') %}
+        {{ statemap[state] if state in statemap else 'Unbekannt' }}
+
+    - name: "lwav_operating_mode_hot_water_text"
+      unique_id: lwav_operating_mode_hot_water_text
+      device_class: enum
+      state: >
+        {%
+          set statemap = {
+            '0': 'Automatik',
+            '1': 'Zusätzlicher Wärmeerzeuger',
+            '2': 'Party',
+            '3': 'Ferien',
+            '4': 'Aus',
+          }
+        %}
+        {% set state = states('sensor.lwav_operating_mode_hot_water') %}
+        {{ statemap[state] if state in statemap else 'Unbekannt' }}
+
+    - name: "lwav_operating_mode_cooling_text"
+      unique_id: lwav_operating_mode_cooling_text
+      device_class: enum
+      state: >
+        {%
+          set statemap = {
+            '0': 'Aus',
+            '1': 'Automatik',
+          }
+        %}
+        {% set state = states('sensor.lwav_operating_mode_cooling') %}
+        {{ statemap[state] if state in statemap else 'Unbekannt' }}
+
+    - name: "lwav_smart_grid_text"
+      unique_id: lwav_smart_grid_text
+      device_class: enum
+      state: >
+        {%
+          set statemap = {
+            '0': 'EVU Sperre',
+            '1': 'Smart Grid Low',
+            '2': 'Standard',
+            '3': 'Smart Grid High',
+          }
+        %}
+        {% set state = states('sensor.lwav_smart_grid') %}
+        {{ statemap[state] if state in statemap else 'Unbekannt' }}
+
+    - name: "lwav_temperature_target_return_flow_current"
+      unique_id: lwav_temperature_target_return_flow_current
+      state: "{{ state_attr('climate.lwav_temperature_target_return_flow', 'current_temperature') }}"
+      device_class: temperature
+      state_class: measurement
+      unit_of_measurement: °C

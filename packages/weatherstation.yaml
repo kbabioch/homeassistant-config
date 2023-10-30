@@ -1,0 +1,189 @@
+knx:
+
+  weather:
+
+    - name: "AU-WS1"
+      address_temperature: "0/1/10"
+      address_brightness_north: "0/1/4"
+      address_brightness_east: "0/1/5"
+      address_brightness_south: "0/1/6"
+      address_brightness_west: "0/1/7"
+      address_wind_speed: "0/1/1"
+      address_wind_bearing: "0/1/2"
+      address_day_night: "0/1/37"
+      address_air_pressure: "0/1/12"
+      address_humidity: "0/1/11"
+      sync_state: true
+
+  binary_sensor:
+
+    - name: "AU-WS1 Schwüle"
+      state_address: "0/1/22"
+      sync_state: expire 300
+    - name: "AU-WS1 Behaglichkeit"
+      state_address: "0/1/23"
+      sync_state: expire 300
+    - name: "AU-WS1 Windsensor unverändert"
+      state_address: "0/1/24"
+      sync_state: expire 300
+    - name: "AU-WS1 Windrichtung unverändert"
+      state_address: "0/1/25"
+      sync_state: expire 300
+    - name: "AU-WS1 kein Windsignal"
+      state_address: "0/1/26"
+      sync_state: expire 300
+    - name: "AU-WS1 Versorgungsspannung"
+      state_address: "0/1/27"
+      sync_state: expire 300
+    - name: "AU-WS1 Niederschlag"
+      state_address: "0/1/30"
+      sync_state: expire 30
+    - name: "AU-WS1 Windgeschwindigkeit Grenzwert 1"
+      state_address: "0/1/31"
+      sync_state: expire 30
+    - name: "AU-WS1 Windgeschwindigkeit Grenzwert 2"
+      state_address: "0/1/32"
+      sync_state: expire 30
+    - name: "AU-WS1 Helligkeit 1-4 / Dämmerung Grenzwert 1"
+      state_address: "0/1/35"
+      sync_state: expire 30
+    - name: "AU-WS1 Helligkeit 1-4 / Dämmerung Grenzwert 2"
+      state_address: "0/1/36"
+      sync_state: expire 30
+    - name: "AU-WS1 Dämmerung Grenzwert 1"
+      state_address: "0/1/37"
+      sync_state: expire 30
+    - name: "AU-WS1 Dämmerung Grenzwert 2"
+      state_address: "0/1/38"
+      sync_state: expire 30
+
+  sensor:
+
+    - name: "AU-WS1 Dämmerung"
+      state_address: "0/1/8"
+      type: illuminance
+      sync_state: expire 300
+    - name: "AU-WS1 Globalstrahlung"
+      state_address: "0/1/9"
+      type: power_density
+      sync_state: expire 300
+    - name: "AU-WS1 Höhe Standort"
+      state_address: "0/1/18"
+      type: length
+      sync_state: expire 300
+    - name: "AU-WS1 Luftfeuchte absolut"
+      state_address: "0/1/20"
+      type: absolute_humidity
+      sync_state: expire 300
+    - name: "AU-WS1 Gefühlte Temperatur"
+      state_address: "0/1/21"
+      type: temperature
+      sync_state: expire 300
+    - name: "AU-WS1 Fehlermeldung"
+      state_address: "0/1/28"
+      type: 1byte_unsigned
+      sync_state: expire 300
+    - name: "AU-WS1 Status-Sensorik"
+      state_address: "0/1/29"
+      type: 2byte_unsigned
+      sync_state: expire 300
+    - name: "AU-WS1 Temperatur"
+      state_address: "0/1/10"
+      type: temperature
+      sync_state: expire 300
+    - name: "AU-WS1 Helligkeit Nord"
+      state_address: "0/1/4"
+      type: illuminance
+      sync_state: expire 300
+    - name: "AU-WS1 Helligkeit Ost"
+      state_address: "0/1/5"
+      type: illuminance
+      sync_state: expire 300
+    - name: "AU-WS1 Helligkeit Süd"
+      state_address: "0/1/6"
+      type: illuminance
+      sync_state: expire 300
+    - name: "AU-WS1 Helligkeit West"
+      state_address: "0/1/7"
+      type: illuminance
+      sync_state: expire 300
+    - name: "AU-WS1 Windgeschwindigkeit"
+      state_address: "0/1/1"
+      type: wind_speed_ms
+      sync_state: expire 30
+    - name: "AU-WS1 Windrichtung"
+      state_address: "0/1/2"
+      type: angle
+      sync_state: expire 30
+    - name: "AU-WS1 Luftdruck"
+      state_address: "0/1/12"
+      type: pressure_2byte
+      sync_state: expire 300
+    - name: "AU-WS1 Luftfeuchte"
+      state_address: "0/1/11"
+      type: humidity
+      sync_state: expire 300
+    - name: "AU-WS1 Azimuth"
+      state_address: "0/1/0"
+      type: angle
+      sync_state: expire 300
+    - name: "AU-WS1 Elevation"
+      state_address: "0/1/17"
+      type: angle
+      sync_state: expire 300
+    - name: "AU-WS1 Breite"
+      state_address: "0/1/16"
+      type: angle_deg
+      sync_state: expire 300
+    - name: "AU-WS1 Länge"
+      state_address: "0/1/15"
+      type: angle_deg
+      sync_state: expire 300
+    - name: "AU-WS1 Helligkeit 1-4"
+      state_address: "0/1/33"
+      type: illuminance
+      sync_state: expire 300
+    - name: "AU-WS1 Helligkeit 1-4 / Dämmerung"
+      state_address: "0/1/34"
+      type: illuminance
+      sync_state: expire 300
+
+#template:
+
+    # TODO: Fix this and move this to weatherstation.yaml
+    #- name: "AU-WS1 Betauungsschutz"
+    #  state: "{{ states('sensor.au_ws1_status_sensorik') | int | bitwise_and(1) }}"
+    #- name: "AU-WS1 Trocknungsphase"
+    #  state: "{{ states('sensor.au_ws1_status_sensorik') | bitwise_and(2) }}"
+    #- name: "AU-WS1 Werte DAC"
+    #  state: "{{ states('sensor.au_ws1_status_sensorik') | bitwise_and(4) }}"
+    #- name: "AU-WS1 Messwert Drucksensor"
+    #  state: "{{ states('sensor.au_ws1_status_sensorik') | bitwise_and(8) }}"
+    #- name: "AU-WS1 Messwert Helligkeitssensor Nord"
+    #  state: "{{ states('sensor.au_ws1_status_sensorik') | bitwise_and(16) }}"
+    #- name: "AU-WS1 Messwert Helligkeitssensor Ost"
+    #  state: "{{ states('sensor.au_ws1_status_sensorik') | bitwise_and(32) }}"
+    #- name: "AU-WS1 Messwert Helligkeitssensor Süd"
+    #  state: "{{ states('sensor.au_ws1_status_sensorik') | bitwise_and(64) }}"
+    #- name: "AU-WS1 Messwert Helligkeitssensor West"
+    #  state: "{{ states('sensor.au_ws1_status_sensorik') | bitwise_and(128) }}"
+    #- name: "AU-WS1 Messwert Dämmerung"
+    #  state: "{{ states('sensor.au_ws1_status_sensorik') | bitwise_and(256) }}"
+    #- name: "AU-WS1 Messwert Globalstrahlungssensor"
+    #  state: "{{ states('sensor.au_ws1_status_sensorik') | bitwise_and(512) }}"
+    #- name: "AU-WS1 Messwert Lufttemperatursensor"
+    #  state: "{{ states('sensor.au_ws1_status_sensorik') | bitwise_and(1024) }}"
+    #- name: "AU-WS1 Messwert Niederschlagssensor"
+    #  state: "{{ states('sensor.au_ws1_status_sensorik') | bitwise_and(2048) }}"
+    #- name: "AU-WS1 Messwert Windgeschwindigkeitssensor"
+    #  state: "{{ states('sensor.au_ws1_status_sensorik') | bitwise_and(4096) }}"
+    #- name: "AU-WS1 Messwert Windrichtungssensor"
+    #  state: "{{ states('sensor.au_ws1_status_sensorik') | bitwise_and(8192) }}"
+    #- name: "AU-WS1 Messwert Feuchtemessung"
+    #  state: "{{ states('sensor.au_ws1_status_sensorik') | bitwise_and(16384) }}"
+    #- name: "AU-WS1 Systemfehler"
+    #  state: "{{ states('sensor.au_ws1_status_sensorik') | bitwise_and(32768) }}"
+    #- name: "AU-WS1 GPS Daten"
+    #  state: "{{ states('sensor.au_ws1_fehlermeldung') | bitwise_and(1) }}"
+    #- name: "AU-WS1 GPS Umsetzer"
+    #  state: "{{ states('sensor.au_ws1_fehlermeldung') | bitwise_and(2) }}"

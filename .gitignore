@@ -1,0 +1,21 @@
+# Ignore everything by default
+*
+
+# Whitelist typical configuration files in root directory
+!.gitignore
+!*.yaml
+!*.md
+
+# Whitelist typical configuration directories
+!blueprints
+!packages
+
+# Ignore folders that contain sensitive information
+.storage
+.cloud
+.google.token
+
+# Ignore files that might contain sensitive information
+ip_bans.yaml
+secrets.yaml
+known_devices.yaml

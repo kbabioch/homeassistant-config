@@ -6,6 +6,9 @@
 !*.yaml
 !*.md
 
+# Whitelist some special Home Assistant files
+!.HA_VERSION
+
 # Whitelist typical configuration directories
 !blueprints
 !packages
